@@ -6,241 +6,277 @@
 :root {
   --bg: #ffffff;
   --surface: #ffffff;
+  --tint: #f5f8f8;
   --fg: #1d2523;
-  --muted: #627069;
-  --line: #e3e7e5;
-  --primary: #0b6e68;
-  --primary-soft: #eef4f3;
-  --teal: #0b6e68;
-  --teal-soft: #eef4f3;
-  --tint: #f6f8f7;
-  --cover-a: #0d5f5a;
-  --cover-b: #123f3d;
-  --on-primary: #ffffff;
+  --muted: #637069;
+  --line: #e2e8e6;
+  --teal: #0b7a75;
+  --teal-soft: #e4f3f1;
+  --coral: #d9534f;
+  --coral-soft: #fceceb;
+  --gold: #b97a12;
+  --gold-soft: #fbf1dd;
+  --on-teal: #ffffff;
   --display: "DM Serif Display", Georgia, serif;
   --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121514; --surface: #1a1e1d; --fg: #eceeed; --muted: #9ba5a3; --line: #2c3331;
-    --primary: #5cc2b8; --primary-soft: #1f2d2b; --teal: #5cc2b8; --teal-soft: #1f2d2b; --tint: #161a19;
-    --cover-a: #0d4a46; --cover-b: #0f2f2d; --on-primary: #0f1514; color-scheme: dark;
+    --bg: #101413; --surface: #171c1b; --tint: #1c2221; --fg: #eceeed; --muted: #9ba5a3; --line: #2b3331;
+    --teal: #5cc2b8; --teal-soft: #1b3330; --coral: #f08a85; --coral-soft: #3a2220; --gold: #e3b45c; --gold-soft: #35291a;
+    --on-teal: #0f1514; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121514; --surface: #1a1e1d; --fg: #eceeed; --muted: #9ba5a3; --line: #2c3331;
-  --primary: #5cc2b8; --primary-soft: #1f2d2b; --teal: #5cc2b8; --teal-soft: #1f2d2b; --tint: #161a19;
-  --cover-a: #0d4a46; --cover-b: #0f2f2d; --on-primary: #0f1514; color-scheme: dark;
+  --bg: #101413; --surface: #171c1b; --tint: #1c2221; --fg: #eceeed; --muted: #9ba5a3; --line: #2b3331;
+  --teal: #5cc2b8; --teal-soft: #1b3330; --coral: #f08a85; --coral-soft: #3a2220; --gold: #e3b45c; --gold-soft: #35291a;
+  --on-teal: #0f1514; color-scheme: dark;
 }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.6; }
-h1, h2, h3, h4, p, ul { margin: 0; }
-a { color: var(--primary); text-decoration: none; }
-a:focus-visible, .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 14.5px; line-height: 1.55; }
+h1, h2, h3, p, ul { margin: 0; }
+a { color: var(--teal); text-decoration: none; font-weight: 600; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 svg.i { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.wrap { max-width: 1080px; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
-
-/* top nav */
-nav { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
-nav .wrap { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; padding-block: 12px; }
-nav b { margin-right: auto; display: flex; align-items: center; gap: 8px; color: var(--primary); }
-nav a { color: var(--muted); font-weight: 500; font-size: .9rem; }
-nav a:hover { color: var(--primary); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
 
 /* cover */
-.cover { height: clamp(150px, 24vw, 230px); position: relative; overflow: hidden; background: linear-gradient(110deg, var(--cover-a), var(--cover-b)) center / cover no-repeat; }
-.cover svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover { height: clamp(120px, 18vw, 170px); background: var(--teal-soft) center / cover no-repeat; overflow: hidden; }
+.cover svg { width: 100%; height: 100%; display: block; }
 .cover.has-image svg { display: none; }
 
-/* profile header */
-.profile { background: var(--surface); border-bottom: 1px solid var(--line); }
-.profile .wrap { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; padding-bottom: 24px; }
-.avatar { width: 124px; height: 124px; border-radius: 50%; border: 5px solid var(--surface); margin-top: -62px; background: var(--primary-soft) center / cover no-repeat; display: grid; place-items: center; font-family: var(--display); font-size: 2.6rem; color: var(--primary); flex: none; }
-.who { flex: 1 1 280px; min-width: 0; }
-.who h1 { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.15; }
-.who .creds { color: var(--teal); font-weight: 700; }
-.who .title { color: var(--muted); margin-top: 2px; }
-.who .loc { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: .9rem; margin-top: 6px; }
-.btns { display: flex; flex-wrap: wrap; gap: 10px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; font-weight: 600; font-size: .9rem; border: 1px solid var(--primary); color: var(--primary); background: transparent; }
-.btn.fill { background: var(--primary); color: var(--on-primary); }
-.btn:hover { opacity: .85; }
+/* page grid: intro card + tabs */
+.page { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; align-items: start; padding-block: 0 32px; }
+@media (max-width: 860px) { .page { grid-template-columns: minmax(0, 1fr); } }
 
-/* layout */
-main .wrap { padding-block: 28px 40px; display: grid; gap: 24px; }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
-.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; gap: 14px; align-items: center; }
-.ico { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary); font-size: 1.35rem; flex: none; }
-.ico.teal { background: var(--teal-soft); color: var(--teal); }
-.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
-.stat span { color: var(--muted); font-size: .85rem; line-height: 1.3; display: block; }
-.cols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-@media (max-width: 820px) { .cols { grid-template-columns: minmax(0, 1fr); } }
-.stack { display: grid; gap: 24px; min-width: 0; }
-.box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
-.box > h2 { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
-.box > h2 .ico { width: 34px; height: 34px; border-radius: 9px; font-size: 1.05rem; }
-.sub { color: var(--muted); font-size: .88rem; }
+/* intro card */
+.intro { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; margin-top: -56px; position: relative; display: grid; gap: 14px; min-width: 0; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; border: 4px solid var(--surface); box-shadow: 0 0 0 2px var(--teal); background: var(--teal-soft) center / cover no-repeat; display: grid; place-items: center; font-family: var(--display); font-size: 2rem; color: var(--teal); }
+.intro h1 { font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
+.creds { color: var(--teal); font-weight: 700; margin-top: 2px; }
+.role { color: var(--muted); margin-top: 6px; }
+.loc { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: .88rem; margin-top: 6px; }
+.btns { display: grid; gap: 8px; }
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px 14px; border-radius: 10px; font-weight: 600; font-size: .9rem; border: 1px solid var(--teal); color: var(--teal); background: transparent; }
+.btn.fill { background: var(--teal); color: var(--on-teal); }
+.btn:hover { opacity: .85; }
+.contact { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .88rem; }
+.contact div { display: flex; align-items: center; gap: 10px; min-width: 0; overflow-wrap: anywhere; }
+.contact .i { color: var(--coral); }
+
+/* tabs */
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px; margin-top: 18px; background: var(--tint); border: 1px solid var(--line); border-radius: 14px; }
+.tab { flex: 1 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 600 .9rem var(--body); cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--fg); }
+.tab[aria-selected="true"] { background: var(--surface); color: var(--teal); box-shadow: 0 0 0 1px var(--line), 0 2px 6px rgba(0,0,0,.05); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; margin-top: 14px; min-height: 440px; }
+.panel[hidden] { display: none; }
+.panel h2 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin-bottom: 14px; }
+h3 { font-size: .95rem; line-height: 1.35; }
+.sub { color: var(--muted); font-size: .86rem; }
+.label { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin: 18px 0 8px; }
+
+/* icon chips (tone cycles teal, coral, gold) */
+.ico { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--teal-soft); color: var(--teal); font-size: 1.15rem; flex: none; }
+.t1 .ico, .ico.t1 { background: var(--coral-soft); color: var(--coral); }
+.t2 .ico, .ico.t2 { background: var(--gold-soft); color: var(--gold); }
+
+/* overview */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 18px; }
+.stat { background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: center; }
+.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1.1; }
+.stat span.l { color: var(--muted); font-size: .8rem; line-height: 1.3; display: block; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { background: var(--teal-soft); color: var(--teal); font-weight: 700; font-size: .8rem; padding: 5px 12px; border-radius: 999px; }
+.badge.plain { background: var(--tint); color: var(--fg); border: 1px solid var(--line); font-weight: 600; }
+
+/* impact */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.card { background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.card .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.metric { font-family: var(--display); font-size: 1.7rem; line-height: 1; color: var(--teal); }
+.t1 .metric { color: var(--coral); } .t2 .metric { color: var(--gold); }
+.card p { color: var(--muted); font-size: .82rem; line-height: 1.45; }
+.card a { font-size: .82rem; margin-top: 4px; }
 
 /* experience */
-.job { position: relative; padding: 0 0 22px 24px; border-left: 2px solid var(--line); margin-left: 6px; }
-.job:last-child { padding-bottom: 0; border-left-color: transparent; }
-.job::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 3px solid var(--teal); }
-.job.now::before { background: var(--teal); }
-.job h3 { font-size: 1rem; }
-.job ul { margin-top: 8px; padding-left: 18px; }
-.job li { margin-block: 4px; }
+.exp { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 22px; }
+@media (max-width: 760px) { .exp { grid-template-columns: minmax(0, 1fr); } }
+.job ul { padding-left: 18px; margin-top: 10px; }
+.job li { margin-block: 5px; font-size: .88rem; }
 .job li::marker { color: var(--teal); }
+.cur { display: inline-block; background: var(--teal-soft); color: var(--teal); font-size: .7rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+.tl { border-left: 2px solid var(--line); margin-left: 5px; display: grid; gap: 16px; }
+.tl div { position: relative; padding-left: 20px; }
+.tl div::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 3px solid var(--coral); }
 
-/* initiative cards */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-.card { border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--tint); }
-.card .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card .metric { font-family: var(--display); font-size: 1.8rem; line-height: 1; color: var(--teal); }
-.card h3 { font-size: .95rem; }
-.card p { color: var(--muted); font-size: .86rem; }
-.card .more { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: .85rem; }
-
-/* sidebar lists */
-.list { display: grid; gap: 14px; }
-.list .row { display: flex; gap: 12px; }
-.list .row .ico { width: 38px; height: 38px; font-size: 1.1rem; }
-.list h3 { font-size: .93rem; line-height: 1.35; }
-.badges { display: flex; flex-wrap: wrap; gap: 8px; }
-.badge { background: var(--teal-soft); color: var(--teal); font-weight: 700; font-size: .82rem; padding: 6px 12px; border-radius: 999px; }
-.badge.blue { background: var(--tint); color: var(--fg); border: 1px solid var(--line); font-weight: 600; }
-.pub { display: flex; flex-direction: column; gap: 4px; padding-block: 12px; border-top: 1px solid var(--line); }
-.pub:first-of-type { border-top: 0; padding-top: 0; }
-.pub a { font-weight: 600; font-size: .88rem; }
-.contact-line { display: flex; align-items: center; gap: 10px; overflow-wrap: anywhere; }
-.contact-line .ico { width: 34px; height: 34px; font-size: 1rem; }
-footer { text-align: center; color: var(--muted); font-size: .85rem; padding-block: 24px; border-top: 1px solid var(--line); background: var(--surface); }
+/* columns used by credentials and research */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+.list { display: grid; gap: 12px; }
+.row { display: flex; gap: 12px; align-items: center; }
+.pub { padding-block: 10px; border-top: 1px solid var(--line); display: grid; gap: 3px; font-size: .88rem; }
+.pub:first-child { border-top: 0; padding-top: 0; }
+footer { text-align: center; color: var(--muted); font-size: .82rem; padding-block: 22px; border-top: 1px solid var(--line); }
+@media (prefers-reduced-motion: no-preference) { .panel:not([hidden]) { animation: swap .25s ease; } @keyframes swap { from { opacity: 0; transform: translateY(6px); } } }
 </style>
 
-<nav><div class="wrap">
-  <b id="navName"></b>
-  <a href="#impact">Impact</a><a href="#experience">Experience</a><a href="#publications">Publications</a><a href="#contact">Contact</a>
-</div></nav>
-
 <div class="cover" id="cover">
-  <!-- Default cover art. Replace by setting SITE.cover below. -->
-  <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <g stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke-opacity=".55" stroke-width="4" d="M0 150 H330 L350 150 L372 96 L400 196 L428 52 L456 150 H640 L660 150 L682 118 L706 176 L724 150 H1200"/>
-      <path stroke-opacity=".18" stroke-width="4" d="M0 190 H200 L220 190 L240 160 L262 214 L280 190 H1200"/>
+  <!-- Default cover art: a hospital skyline with a heartbeat line. To use a photo instead, set SITE.cover below. -->
+  <svg viewBox="0 0 1200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9f6f4"/><stop offset="1" stop-color="#d3ece8"/></linearGradient>
+    </defs>
+    <rect width="1200" height="170" fill="url(#sky)"/>
+    <circle cx="170" cy="40" r="90" fill="#ffffff" fill-opacity=".45"/>
+    <circle cx="1040" cy="150" r="130" fill="#ffffff" fill-opacity=".35"/>
+    <g fill="#0b7a75">
+      <rect x="760" y="92" width="90" height="78" opacity=".35"/>
+      <rect x="880" y="56" width="150" height="114" opacity=".9"/>
+      <rect x="1050" y="104" width="100" height="66" opacity=".45"/>
+      <rect x="1000" y="30" width="2" height="0"/>
     </g>
-    <g fill="#fff" fill-opacity=".14">
-      <path d="M1010 40h18v18h18v18h-18v18h-18V76h-18V58h18z"/>
-      <path d="M130 30h12v12h12v12h-12v12h-12V54h-12V42h12z"/>
-      <path d="M880 150h12v12h12v12h-12v12h-12v-12h-12v-12h12z"/>
+    <g fill="#fff" fill-opacity=".75">
+      <rect x="896" y="100" width="14" height="14"/><rect x="920" y="100" width="14" height="14"/><rect x="944" y="100" width="14" height="14"/><rect x="968" y="100" width="14" height="14"/><rect x="992" y="100" width="14" height="14"/>
+      <rect x="896" y="126" width="14" height="14"/><rect x="920" y="126" width="14" height="14"/><rect x="944" y="126" width="14" height="14"/><rect x="968" y="126" width="14" height="14"/><rect x="992" y="126" width="14" height="14"/>
+      <rect x="896" y="150" width="14" height="20"/><rect x="992" y="150" width="14" height="20"/>
     </g>
+    <circle cx="955" cy="76" r="17" fill="#fff"/>
+    <path d="M949 76h12M955 70v12" stroke="#d9534f" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 120 H240 L262 120 L284 80 L310 150 L336 44 L362 120 H560 L580 120 L600 98 L622 138 L640 120 H880" fill="none" stroke="#0b7a75" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".75"/>
+    <path d="M380 40h14v14h14v14h-14v14h-14V68h-14V54h14z" fill="#d9534f" fill-opacity=".35"/>
+    <path d="M620 22h10v10h10v10h-10v10h-10V42h-10V32h10z" fill="#0b7a75" fill-opacity=".25"/>
   </svg>
 </div>
 
-<header class="profile"><div class="wrap">
-  <div class="avatar" id="avatar"></div>
-  <div class="who">
-    <h1 id="name"></h1>
-    <p class="creds" id="creds"></p>
-    <p class="title" id="title"></p>
-    <p class="loc" id="loc"></p>
-  </div>
-  <div class="btns" id="heroLinks"></div>
-</div></header>
-
-<main><div class="wrap">
-  <div class="stats" id="stats"></div>
-  <div class="cols">
-    <div class="stack">
-      <section class="box" id="about"><h2></h2><p id="summary"></p></section>
-      <section class="box" id="impact"><h2></h2><div class="cards" id="initiatives"></div></section>
-      <section class="box" id="experience"><h2></h2><div id="jobs"></div></section>
-      <section class="box" id="publications"><h2></h2><div id="pubs"></div><div class="badges" id="pres" style="margin-top:14px"></div></section>
+<div class="wrap">
+ <div class="page">
+  <!-- INTRO CARD (stays in place while tabs swap) -->
+  <aside class="intro">
+    <div class="avatar" id="avatar"></div>
+    <div>
+      <h1 id="name"></h1>
+      <p class="creds" id="creds"></p>
+      <p class="role" id="title"></p>
+      <p class="loc" id="loc"></p>
     </div>
-    <aside class="stack">
-      <section class="box" id="education"><h2></h2><div class="list" id="edu"></div></section>
-      <section class="box" id="certs"><h2></h2><div class="badges" id="certList"></div></section>
-      <section class="box" id="honors"><h2></h2><div class="list" id="honorList"></div></section>
-      <section class="box" id="affil"><h2></h2><div class="badges" id="affilList"></div></section>
-      <section class="box" id="contact"><h2></h2><div class="list" id="contactList"></div></section>
-    </aside>
-  </div>
-</div></main>
+    <div class="btns" id="heroLinks"></div>
+    <div class="contact" id="contactList"></div>
+  </aside>
+
+  <main style="min-width:0">
+    <div class="tabs" id="tabs" role="tablist"></div>
+
+    <!-- Each section below is one tab. Copy a <section class="panel"> to add a tab. -->
+    <section class="panel" data-title="Overview" data-icon="heart">
+      <h2>About</h2><p id="summary"></p>
+      <div class="stats" id="stats"></div>
+      <p class="label">Core skills</p><div class="badges" id="skills"></div>
+    </section>
+
+    <section class="panel" data-title="Impact" data-icon="chart">
+      <h2>Quality &amp; Safety Impact</h2><div class="cards" id="initiatives"></div>
+    </section>
+
+    <section class="panel" data-title="Experience" data-icon="users">
+      <h2>Experience</h2><div class="exp"><div class="job" id="currentJob"></div><div class="tl" id="jobs"></div></div>
+    </section>
+
+    <section class="panel" data-title="Credentials" data-icon="cap">
+      <h2>Education &amp; Credentials</h2>
+      <div class="cols">
+        <div><p class="label" style="margin-top:0">Education</p><div class="list" id="edu"></div></div>
+        <div><p class="label" style="margin-top:0">Certifications</p><div class="badges" id="certList"></div>
+          <p class="label">Affiliations</p><div class="badges" id="affilList"></div></div>
+      </div>
+    </section>
+
+    <section class="panel" data-title="Research &amp; Honors" data-icon="award">
+      <h2>Research &amp; Honors</h2>
+      <div class="cols">
+        <div><p class="label" style="margin-top:0">Publications</p><div id="pubs"></div>
+          <p class="label">Presentations</p><div class="badges" id="pres"></div></div>
+        <div><p class="label" style="margin-top:0">Honors</p><div class="list" id="honorList"></div></div>
+      </div>
+    </section>
+  </main>
+ </div>
+</div>
 <footer id="footer"></footer>
 
 <script>
 /* ============================================================
    EDIT HERE. The page builds itself from this block.
    - To add an item, copy one line/object in a list and change the text.
-   - Set a link to a real address, or leave "#" as a placeholder.
+   - Links: use a real address, or leave "#" as a placeholder.
      Set a link to "" to hide its button.
-   - Icons you can use: shield, drop, heart, pulse, check, award, book,
-     cap, users, chart, clock, file, mail, phone, link, pin
+   - Icons: shield, drop, heart, pulse, check, award, book, cap,
+     users, chart, clock, file, mail, phone, link, pin
    ============================================================ */
 const SITE = {
   name: "Justine Moore",
   initials: "JM",
   creds: "RN, MSN, VA-BC, CPHQ",
-  title: "Manager, Clinical Operations at Yale New Haven Hospital",
+  title: "Manager, Clinical Operations, Yale New Haven Hospital",
   location: "Branford, CT",
-  photo: "images/JustineMoore.png",   // profile photo: paste an image address, e.g. "images/justine.jpg"
-  cover: "",   // cover image: paste an image address, e.g. "images/cover.jpg"
+  photo: "images/JustineMoore.png",   // profile photo path, e.g. "images/justine.jpg"
+  cover: "",   // cover photo path, e.g. "images/cover.jpg"
   heroLinks: [
-    { label: "Email", icon: "mail", url: "mailto:Seajaymoore@att.net", primary: true },
+    { label: "Email Justine", icon: "mail", url: "mailto:Seajaymoore@att.net", primary: true },
     { label: "LinkedIn", icon: "link", url: "https://www.linkedin.com/in/justine-moore-87687590" },
     { label: "Resume (PDF)", icon: "file", url: "#" }
   ],
-  summary: "Nurse leader with 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness using Lean, DMAIC, PDSA, and root cause analysis.",
+  contact: [
+    { icon: "mail",  text: "Seajaymoore@att.net" },
+    { icon: "phone", text: "203-500-5056" }
+  ],
+  summary: "Nurse leader with 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
   stats: [
-    { icon: "clock",  value: "25 yrs", label: "Experience at Yale New Haven Hospital" },
+    { icon: "clock",  value: "25 yrs", label: "At Yale New Haven Hospital" },
     { icon: "shield", value: "88%",    label: "CAUTI reduction" },
-    { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART (YNHHS)" },
+    { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART" },
     { icon: "check",  value: "0",      label: "Findings, 2026 accreditation" }
   ],
+  skills: ["Lean", "DMAIC", "PDSA", "Root Cause Analysis", "Statistical Process Control", "Joint Commission / CMS / DPH Readiness", "Performance Scorecards", "Leadership Development"],
   initiatives: [
-    { icon: "shield", metric: "-88%", title: "CAUTI", text: "Improved processes around urinary retention. Daily catheter audit compliance up 4%.", link: "#" },
-    { icon: "drop",   metric: "-47%", title: "CLABSI, Hemodialysis", text: "Quality improvement project for patients receiving hemodialysis.", link: "#" },
-    { icon: "shield", metric: "-39%", title: "HAI CDI", text: "Earlier detection within the first 3 days of admission.", link: "#" },
+    { icon: "shield", metric: "-88%", title: "CAUTI", text: "Better processes around urinary retention.", link: "#" },
+    { icon: "drop",   metric: "-47%", title: "CLABSI, Hemodialysis", text: "Quality improvement project.", link: "#" },
+    { icon: "shield", metric: "-39%", title: "HAI CDI", text: "Early detection within 3 days of admission.", link: "#" },
     { icon: "shield", metric: "-13%", title: "MRSA Infections", text: "Accountability for maintenance bundles.", link: "#" },
-    { icon: "heart",  metric: "-31%", title: "Pressure Injury", text: "Prevalence fell from 5.10 (FY26 Q3) to a preliminary 3.5 (FY26 Q4), the lowest in two fiscal years.", link: "#" },
-    { icon: "pulse",  metric: "-40%", title: "eCART Mortality", text: "Time to first view up 14%, disposition compliance up 20%. YNHHS mortality down 40% for elevated scores.", link: "#" },
-    { icon: "chart",  metric: "+18%", title: "Discharges by 11am", text: "Also a 3% reduction in average length of stay.", link: "#" }
+    { icon: "heart",  metric: "-31%", title: "Pressure Injury", text: "Prevalence 5.10 to a preliminary 3.5, lowest in two years.", link: "#" },
+    { icon: "pulse",  metric: "-40%", title: "eCART Mortality", text: "YNHHS result. First-view compliance +14%, disposition +20%.", link: "#" },
+    { icon: "chart",  metric: "+18%", title: "Discharges by 11am", text: "Plus a 3% cut in average length of stay.", link: "#" },
+    { icon: "check",  metric: "0",    title: "Survey Findings", text: "2026 Joint Commission, CMS, and DPH readiness.", link: "#" }
   ],
   experience: [
     { role: "Manager, Clinical Operations", org: "Yale New Haven Hospital", dates: "2023 – Present", current: true,
       bullets: [
-        "Strategic oversight of quality, patient safety, regulatory readiness, and clinical effectiveness for inpatient medicine services.",
-        "Built unit- and service line-level performance scorecards for visibility and accountability.",
-        "Redesigned Healthy Skin governance into a performance improvement framework. DPH reportable events ran 31% below historical performance, April to September 2026.",
+        "Oversee quality, patient safety, regulatory readiness, and clinical effectiveness for inpatient medicine.",
+        "Built unit- and service line-level performance scorecards.",
+        "Redesigned Healthy Skin governance. DPH reportable events ran 31% below historical performance, April to September 2026.",
         "Expanded wound care RN staffing to meet national standards.",
-        "Prepared the organization for Joint Commission, CMS, and DPH surveys, using statistical process control to monitor sustainability.",
-        "Recruit, mentor, coach, and evaluate leaders and clinical staff, including succession planning."
+        "Use statistical process control to monitor sustainability.",
+        "Recruit, mentor, coach, and evaluate leaders and clinical staff."
       ] },
     { role: "Adjunct Professor", org: "Albertus Magnus College", dates: "2026 – Present" },
     { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", dates: "2017 – 2023" },
     { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", dates: "2001 – 2017" }
   ],
+  education: [
+    { icon: "cap",  title: "MSN, Executive Leadership", sub: "Chamberlain University, 2022" },
+    { icon: "cap",  title: "BSN", sub: "Southern Connecticut State University, 1998" },
+    { icon: "book", title: "Leading Quality Improvement for Managers", sub: "NAHQ, 2024" }
+  ],
+  certifications: ["CPHQ", "VA-BC", "IHI Quality & Safety Certificate"],
+  affiliations: ["NAHQ", "CHA Quality Management Group", "AVA"],
   publications: [
     { text: "Moore, J., & McMahon, K.P. (2025). A Quality Improvement PDSA to Evaluate the Effectiveness of Blood Diversion Using a Three-Way Connector During Blood Culture Collection.", link: "#" },
     { text: "Moore, J., Wall, A., Merenguelli, R., Smith, C., Thayer, L., & Rivera-Vinas, J. Female External Urinary Catheters: A Nurse-Led Intervention.", link: "#" }
   ],
   presentations: ["NAHQ Next", "AVA Scientific Meeting", "AMSN", "Connecticut Nursing Research Conference", "Janet Parkosewich Nursing Research Conference"],
-  education: [
-    { icon: "cap",  title: "MSN, Executive Leadership", sub: "Chamberlain University, 2022" },
-    { icon: "cap",  title: "BSN", sub: "Southern Connecticut State University, 1998" },
-    { icon: "book", title: "NAHQ Leading Quality Improvement for Managers", sub: "2024" }
-  ],
-  certifications: ["CPHQ", "VA-BC", "IHI Quality & Safety Certificate"],
   honors: [
     { title: "Marita Titler Evidence-Based Practice Award", sub: "2024" },
     { title: "Yale New Haven Hospital Nurse of the Year", sub: "" },
     { title: "Multiple YNHH Special Recognition Awards", sub: "" }
-  ],
-  affiliations: ["NAHQ", "CHA Quality Management Group", "AVA"],
-  contact: [
-    { icon: "mail",  text: "Seajaymoore@att.net", url: "mailto:Seajaymoore@att.net" },
-    { icon: "phone", text: "203-500-5056", url: "tel:2035005056" },
-    { icon: "link",  text: "linkedin.com/in/justine-moore-87687590", url: "https://www.linkedin.com/in/justine-moore-87687590" }
   ]
 };
 
@@ -266,10 +302,9 @@ const P = {
 const icon = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n] || P.check}"/></svg>`;
 const $ = id => document.getElementById(id);
 const ext = u => /^https?:/.test(u) ? ' target="_blank" rel="noopener"' : "";
-const head = (id, ic, text, tone) => { $(id).querySelector("h2").innerHTML = `<span class="ico ${tone || ""}">${icon(ic)}</span>${text}`; };
+const tone = i => "t" + (i % 3);
 const S = SITE;
 
-$("navName").innerHTML = icon("pulse") + S.name;
 $("name").textContent = S.name;
 $("creds").textContent = S.creds;
 $("title").textContent = S.title;
@@ -278,26 +313,40 @@ $("footer").textContent = "© " + new Date().getFullYear() + " " + S.name;
 if (S.cover) { $("cover").style.backgroundImage = `url("${S.cover}")`; $("cover").classList.add("has-image"); }
 if (S.photo) { $("avatar").style.backgroundImage = `url("${S.photo}")`; } else { $("avatar").textContent = S.initials; }
 $("heroLinks").innerHTML = S.heroLinks.filter(l => l.url).map(l => `<a class="btn ${l.primary ? "fill" : ""}" href="${l.url}"${ext(l.url)}>${icon(l.icon)}${l.label}</a>`).join("");
-$("stats").innerHTML = S.stats.map((s, i) => `<div class="stat"><span class="ico ${i % 2 ? "teal" : ""}">${icon(s.icon)}</span><div><b>${s.value}</b><span>${s.label}</span></div></div>`).join("");
+$("contactList").innerHTML = S.contact.map(c => `<div>${icon(c.icon)}<span>${c.text}</span></div>`).join("");
 
-head("about", "heart", "About");
 $("summary").textContent = S.summary;
-head("impact", "chart", "Quality &amp; Safety Impact", "teal");
-$("initiatives").innerHTML = S.initiatives.map(c => `<article class="card"><div class="top"><span class="ico">${icon(c.icon)}</span><span class="metric">${c.metric}</span></div><h3>${c.title}</h3><p>${c.text}</p>${c.link ? `<a class="more" href="${c.link}"${ext(c.link)}>Learn more</a>` : ""}</article>`).join("");
-head("experience", "users", "Experience");
-$("jobs").innerHTML = S.experience.map(j => `<div class="job ${j.current ? "now" : ""}"><h3>${j.role}</h3><p class="sub">${j.org} · ${j.dates}</p>${j.bullets ? `<ul>${j.bullets.map(b => `<li>${b}</li>`).join("")}</ul>` : ""}</div>`).join("");
-head("publications", "book", "Publications &amp; Presentations", "teal");
-$("pubs").innerHTML = S.publications.map(p => `<div class="pub"><p>${p.text}</p>${p.link ? `<a href="${p.link}"${ext(p.link)}>Read publication</a>` : ""}</div>`).join("");
-$("pres").innerHTML = S.presentations.map(t => `<span class="badge blue">${t}</span>`).join("");
+$("stats").innerHTML = S.stats.map((s, i) => `<div class="stat ${tone(i)}"><span class="ico">${icon(s.icon)}</span><div><b>${s.value}</b><span class="l">${s.label}</span></div></div>`).join("");
+$("skills").innerHTML = S.skills.map(t => `<span class="badge plain">${t}</span>`).join("");
+$("initiatives").innerHTML = S.initiatives.map((c, i) => `<article class="card ${tone(i)}"><div class="top"><span class="ico">${icon(c.icon)}</span><span class="metric">${c.metric}</span></div><h3>${c.title}</h3><p>${c.text}</p>${c.link ? `<a href="${c.link}"${ext(c.link)}>Learn more</a>` : ""}</article>`).join("");
 
-head("education", "cap", "Education");
-$("edu").innerHTML = S.education.map(e => `<div class="row"><span class="ico">${icon(e.icon)}</span><div><h3>${e.title}</h3><p class="sub">${e.sub}</p></div></div>`).join("");
-head("certs", "check", "Certifications", "teal");
+const cur = S.experience.find(j => j.current) || S.experience[0];
+$("currentJob").innerHTML = `<h3>${cur.role}<span class="cur">Current</span></h3><p class="sub">${cur.org} · ${cur.dates}</p><ul>${(cur.bullets || []).map(b => `<li>${b}</li>`).join("")}</ul>`;
+$("jobs").innerHTML = S.experience.filter(j => j !== cur).map(j => `<div><h3>${j.role}</h3><p class="sub">${j.org} · ${j.dates}</p></div>`).join("");
+
+$("edu").innerHTML = S.education.map((e, i) => `<div class="row ${tone(i)}"><span class="ico">${icon(e.icon)}</span><div><h3>${e.title}</h3><p class="sub">${e.sub}</p></div></div>`).join("");
 $("certList").innerHTML = S.certifications.map(c => `<span class="badge">${c}</span>`).join("");
-head("honors", "award", "Honors");
-$("honorList").innerHTML = S.honors.map(h => `<div class="row"><span class="ico teal">${icon("award")}</span><div><h3>${h.title}</h3>${h.sub ? `<p class="sub">${h.sub}</p>` : ""}</div></div>`).join("");
-head("affil", "users", "Affiliations", "teal");
-$("affilList").innerHTML = S.affiliations.map(a => `<span class="badge blue">${a}</span>`).join("");
-head("contact", "mail", "Contact");
-$("contactList").innerHTML = S.contact.map(c => `<div class="contact-line"><span class="ico teal">${icon(c.icon)}</span><a href="${c.url}"${ext(c.url)}>${c.text}</a></div>`).join("");
+$("affilList").innerHTML = S.affiliations.map(a => `<span class="badge plain">${a}</span>`).join("");
+$("pubs").innerHTML = S.publications.map(p => `<div class="pub"><p>${p.text}</p>${p.link ? `<a href="${p.link}"${ext(p.link)}>Read publication</a>` : ""}</div>`).join("");
+$("pres").innerHTML = S.presentations.map(t => `<span class="badge plain">${t}</span>`).join("");
+$("honorList").innerHTML = S.honors.map((h, i) => `<div class="row ${tone(i + 1)}"><span class="ico">${icon("award")}</span><div><h3>${h.title}</h3>${h.sub ? `<p class="sub">${h.sub}</p>` : ""}</div></div>`).join("");
+
+/* tabs: built from the panels above */
+const panels = [...document.querySelectorAll(".panel")];
+const tabs = $("tabs");
+function show(i) {
+  panels.forEach((p, k) => { p.hidden = k !== i; });
+  [...tabs.children].forEach((b, k) => b.setAttribute("aria-selected", k === i));
+  try { history.replaceState(null, "", "#" + slug(panels[i])); } catch (e) {}
+}
+const slug = p => p.dataset.title.toLowerCase().replace(/[^a-z]+/g, "");
+panels.forEach((p, i) => {
+  const b = document.createElement("button");
+  b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab");
+  b.innerHTML = icon(p.dataset.icon) + p.dataset.title;
+  b.onclick = () => show(i);
+  tabs.appendChild(b);
+});
+const start = panels.findIndex(p => "#" + slug(p) === location.hash);
+show(start < 0 ? 0 : start);
 </script>
