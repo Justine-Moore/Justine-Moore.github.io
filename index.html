@@ -20,18 +20,8 @@
   --display: "DM Serif Display", Georgia, serif;
   --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #101413; --surface: #171c1b; --tint: #1c2221; --fg: #eceeed; --muted: #9ba5a3; --line: #2b3331;
-    --teal: #5cc2b8; --teal-soft: #1b3330; --coral: #f08a85; --coral-soft: #3a2220; --gold: #e3b45c; --gold-soft: #35291a;
-    --on-teal: #0f1514; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #101413; --surface: #171c1b; --tint: #1c2221; --fg: #eceeed; --muted: #9ba5a3; --line: #2b3331;
-  --teal: #5cc2b8; --teal-soft: #1b3330; --coral: #f08a85; --coral-soft: #3a2220; --gold: #e3b45c; --gold-soft: #35291a;
-  --on-teal: #0f1514; color-scheme: dark;
-}
+/* The site is always white (no dark mode). */
+:root { color-scheme: light; }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 14.5px; line-height: 1.55; }
 h1, h2, h3, p, ul { margin: 0; }
@@ -100,8 +90,16 @@ h3 { font-size: .95rem; line-height: 1.35; }
 .card a { font-size: .82rem; margin-top: 4px; }
 
 /* experience */
-.exp { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 22px; }
+.exp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px; align-items: start; }
 @media (max-width: 760px) { .exp { grid-template-columns: minmax(0, 1fr); } }
+.jobs-list { display: grid; gap: 8px; }
+.jobs-list button { text-align: left; font: inherit; color: var(--fg); background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; display: grid; gap: 2px; }
+.jobs-list button b { font-size: .92rem; line-height: 1.3; }
+.jobs-list button span { color: var(--muted); font-size: .8rem; }
+.jobs-list button:hover { border-color: var(--teal); }
+.jobs-list button.on { background: var(--teal-soft); border-color: var(--teal); box-shadow: inset 4px 0 0 var(--teal); }
+.job-detail { background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-height: 280px; }
+.job-detail p.sum { margin-top: 10px; font-size: .9rem; }
 .job ul { padding-left: 18px; margin-top: 10px; }
 .job li { margin-block: 5px; font-size: .88rem; }
 .job li::marker { color: var(--teal); }
@@ -178,7 +176,8 @@ footer { text-align: center; color: var(--muted); font-size: .82rem; padding-blo
     </section>
 
     <section class="panel" data-title="Experience" data-icon="users">
-      <h2>Experience</h2><div class="exp"><div class="job" id="currentJob"></div><div class="tl" id="jobs"></div></div>
+      <h2>Experience</h2><p class="sub" style="margin:-8px 0 14px">Select a role to see details.</p>
+      <div class="exp"><div class="jobs-list" id="jobs"></div><div class="job-detail job" id="jobDetail" aria-live="polite"></div></div>
     </section>
 
     <section class="panel" data-title="Credentials" data-icon="cap">
@@ -257,9 +256,13 @@ const SITE = {
         "Use statistical process control to monitor sustainability.",
         "Recruit, mentor, coach, and evaluate leaders and clinical staff."
       ] },
-    { role: "Adjunct Professor", org: "Albertus Magnus College", dates: "2026 – Present" },
-    { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", dates: "2017 – 2023" },
-    { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", dates: "2001 – 2017" }
+    /* Placeholder text below: replace with real details for each role. */
+    { role: "Adjunct Professor", org: "Albertus Magnus College", dates: "2026 – Present",
+      bullets: ["Add courses taught and teaching focus here.", "Add a second highlight here."] },
+    { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", dates: "2017 – 2023",
+      bullets: ["Add responsibilities for this role here.", "Add key results here."] },
+    { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", dates: "2001 – 2017",
+      bullets: ["Add units and patient populations here.", "Add key accomplishments here."] }
   ],
   education: [
     { icon: "cap",  title: "MSN, Executive Leadership", sub: "Chamberlain University, 2022" },
@@ -320,9 +323,15 @@ $("stats").innerHTML = S.stats.map((s, i) => `<div class="stat ${tone(i)}"><span
 $("skills").innerHTML = S.skills.map(t => `<span class="badge plain">${t}</span>`).join("");
 $("initiatives").innerHTML = S.initiatives.map((c, i) => `<article class="card ${tone(i)}"><div class="top"><span class="ico">${icon(c.icon)}</span><span class="metric">${c.metric}</span></div><h3>${c.title}</h3><p>${c.text}</p>${c.link ? `<a href="${c.link}"${ext(c.link)}>Learn more</a>` : ""}</article>`).join("");
 
-const cur = S.experience.find(j => j.current) || S.experience[0];
-$("currentJob").innerHTML = `<h3>${cur.role}<span class="cur">Current</span></h3><p class="sub">${cur.org} · ${cur.dates}</p><ul>${(cur.bullets || []).map(b => `<li>${b}</li>`).join("")}</ul>`;
-$("jobs").innerHTML = S.experience.filter(j => j !== cur).map(j => `<div><h3>${j.role}</h3><p class="sub">${j.org} · ${j.dates}</p></div>`).join("");
+/* experience: click a role to see its details */
+$("jobs").innerHTML = S.experience.map(j => `<button type="button"><b>${j.role}</b><span>${j.org} · ${j.dates}</span></button>`).join("");
+function showJob(i) {
+  const j = S.experience[i];
+  $("jobDetail").innerHTML = `<h3 style="font-size:1.1rem">${j.role}${j.current ? '<span class="cur">Current</span>' : ""}</h3><p class="sub">${j.org} · ${j.dates}</p>${j.summary ? `<p class="sum">${j.summary}</p>` : ""}<ul>${(j.bullets || []).map(b => `<li>${b}</li>`).join("")}</ul>`;
+  [...$("jobs").children].forEach((b, k) => b.classList.toggle("on", k === i));
+}
+[...$("jobs").children].forEach((b, k) => { b.onclick = () => showJob(k); });
+showJob(0);
 
 $("edu").innerHTML = S.education.map((e, i) => `<div class="row ${tone(i)}"><span class="ico">${icon(e.icon)}</span><div><h3>${e.title}</h3><p class="sub">${e.sub}</p></div></div>`).join("");
 $("certList").innerHTML = S.certifications.map(c => `<span class="badge">${c}</span>`).join("");
