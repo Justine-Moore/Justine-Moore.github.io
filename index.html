@@ -1,1061 +1,303 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Justine Moore, RN, MSN, VA-BC, CPHQ — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+<title>Justine Moore, RN</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Colors: change these tokens to restyle the whole site. */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --fg: #1d2523;
+  --muted: #627069;
+  --line: #e3e7e5;
+  --primary: #0b6e68;
+  --primary-soft: #eef4f3;
+  --teal: #0b6e68;
+  --teal-soft: #eef4f3;
+  --tint: #f6f8f7;
+  --cover-a: #0d5f5a;
+  --cover-b: #123f3d;
+  --on-primary: #ffffff;
+  --display: "DM Serif Display", Georgia, serif;
+  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121514; --surface: #1a1e1d; --fg: #eceeed; --muted: #9ba5a3; --line: #2c3331;
+    --primary: #5cc2b8; --primary-soft: #1f2d2b; --teal: #5cc2b8; --teal-soft: #1f2d2b; --tint: #161a19;
+    --cover-a: #0d4a46; --cover-b: #0f2f2d; --on-primary: #0f1514; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121514; --surface: #1a1e1d; --fg: #eceeed; --muted: #9ba5a3; --line: #2c3331;
+  --primary: #5cc2b8; --primary-soft: #1f2d2b; --teal: #5cc2b8; --teal-soft: #1f2d2b; --tint: #161a19;
+  --cover-a: #0d4a46; --cover-b: #0f2f2d; --on-primary: #0f1514; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.6; }
+h1, h2, h3, h4, p, ul { margin: 0; }
+a { color: var(--primary); text-decoration: none; }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+svg.i { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
 
-  :root {
-    --navy: #0b1b38;
-    --navy-mid: #162d56;
-    --navy-light: #1e3f72;
-    --blue: #2563a8;
-    --blue-light: #4a82c8;
-    --blue-pale: #e8f0fb;
-    --blue-muted: #c5d8f4;
-    --white: #ffffff;
-    --off-white: #f6f8fc;
-    --gray-light: #edf1f8;
-    --border: #dde4f0;
-    --border-soft: #eef1f8;
-    --text: #0b1b38;
-    --text-mid: #3a4d6a;
-    --text-muted: #6b7c96;
-    --text-faint: #9aabbd;
-    --accent-teal: #0e7e6e;
-    --accent-teal-pale: #e2f4f0;
-    --accent-gold: #a0720a;
-    --accent-gold-pale: #fdf3dc;
-    --radius: 10px;
-    --radius-sm: 6px;
-    --shadow: 0 1px 3px rgba(11,27,56,0.06), 0 4px 16px rgba(11,27,56,0.04);
-  }
+/* top nav */
+nav { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+nav .wrap { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; padding-block: 12px; }
+nav b { margin-right: auto; display: flex; align-items: center; gap: 8px; color: var(--primary); }
+nav a { color: var(--muted); font-weight: 500; font-size: .9rem; }
+nav a:hover { color: var(--primary); }
 
-  html { scroll-behavior: smooth; }
+/* cover */
+.cover { height: clamp(150px, 24vw, 230px); position: relative; overflow: hidden; background: linear-gradient(110deg, var(--cover-a), var(--cover-b)) center / cover no-repeat; }
+.cover svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cover.has-image svg { display: none; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--off-white);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.65;
-    min-height: 100vh;
-  }
+/* profile header */
+.profile { background: var(--surface); border-bottom: 1px solid var(--line); }
+.profile .wrap { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; padding-bottom: 24px; }
+.avatar { width: 124px; height: 124px; border-radius: 50%; border: 5px solid var(--surface); margin-top: -62px; background: var(--primary-soft) center / cover no-repeat; display: grid; place-items: center; font-family: var(--display); font-size: 2.6rem; color: var(--primary); flex: none; }
+.who { flex: 1 1 280px; min-width: 0; }
+.who h1 { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.15; }
+.who .creds { color: var(--teal); font-weight: 700; }
+.who .title { color: var(--muted); margin-top: 2px; }
+.who .loc { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: .9rem; margin-top: 6px; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; font-weight: 600; font-size: .9rem; border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+.btn.fill { background: var(--primary); color: var(--on-primary); }
+.btn:hover { opacity: .85; }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 58px;
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--navy);
-    letter-spacing: -0.2px;
-  }
-  .nav-logo span {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    color: var(--blue);
-    text-transform: uppercase;
-    margin-left: 10px;
-    vertical-align: middle;
-  }
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--navy); }
-  .nav-cta {
-    background: var(--navy);
-    color: var(--white) !important;
-    padding: 7px 16px;
-    border-radius: var(--radius-sm);
-  }
-  .nav-cta:hover { background: var(--navy-light); color: var(--white) !important; }
+/* layout */
+main .wrap { padding-block: 28px 40px; display: grid; gap: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; gap: 14px; align-items: center; }
+.ico { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary); font-size: 1.35rem; flex: none; }
+.ico.teal { background: var(--teal-soft); color: var(--teal); }
+.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
+.stat span { color: var(--muted); font-size: .85rem; line-height: 1.3; display: block; }
+.cols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 820px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.stack { display: grid; gap: 24px; min-width: 0; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+.box > h2 { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+.box > h2 .ico { width: 34px; height: 34px; border-radius: 9px; font-size: 1.05rem; }
+.sub { color: var(--muted); font-size: .88rem; }
 
-  /* ── HERO ── */
-  .hero {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 4rem 2.5rem 3rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 3rem;
-    align-items: start;
-    max-width: 860px;
-  }
-  .hero-eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-  }
-  .hero-eyebrow-line {
-    width: 28px;
-    height: 1.5px;
-    background: var(--blue);
-  }
-  .hero-eyebrow-text {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--blue);
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 600;
-    color: var(--navy);
-    line-height: 1.15;
-    letter-spacing: -0.8px;
-    margin-bottom: 0.5rem;
-  }
-  .hero-credentials {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--blue);
-    letter-spacing: 0.5px;
-    margin-bottom: 1.25rem;
-  }
-  .hero-summary {
-    font-size: 15px;
-    color: var(--text-mid);
-    font-weight: 300;
-    line-height: 1.75;
-    max-width: 560px;
-    margin-bottom: 2rem;
-  }
-  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    padding: 11px 24px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s;
-  }
-  .btn-primary:hover { background: var(--navy-light); }
-  .btn-outline {
-    background: transparent;
-    color: var(--navy);
-    border: 1px solid var(--navy);
-    padding: 11px 24px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-  }
-  .btn-outline:hover { background: var(--navy); color: var(--white); }
-  .hero-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--blue-pale);
-    border: 2px solid var(--blue-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--navy);
-    flex-shrink: 0;
-  }
+/* experience */
+.job { position: relative; padding: 0 0 22px 24px; border-left: 2px solid var(--line); margin-left: 6px; }
+.job:last-child { padding-bottom: 0; border-left-color: transparent; }
+.job::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 3px solid var(--teal); }
+.job.now::before { background: var(--teal); }
+.job h3 { font-size: 1rem; }
+.job ul { margin-top: 8px; padding-left: 18px; }
+.job li { margin-block: 4px; }
+.job li::marker { color: var(--teal); }
 
-  /* ── STATS BAR ── */
-  .stats-bar {
-    background: var(--navy);
-  }
-  .stats-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 0 2.5rem;
-  }
-  .stat {
-    text-align: center;
-    padding: 1.25rem 0;
-    border-right: 1px solid rgba(255,255,255,0.08);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-    display: block;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .stat-label {
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-  }
+/* initiative cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; background: var(--tint); }
+.card .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.card .metric { font-family: var(--display); font-size: 1.8rem; line-height: 1; color: var(--teal); }
+.card h3 { font-size: .95rem; }
+.card p { color: var(--muted); font-size: .86rem; }
+.card .more { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: .85rem; }
 
-  /* ── MAIN LAYOUT ── */
-  .main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2.5rem 2.5rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  /* ── CARDS ── */
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.2s;
-  }
-  .card:hover { box-shadow: 0 2px 8px rgba(11,27,56,0.08), 0 8px 28px rgba(11,27,56,0.06); }
-  .card.full-width { grid-column: 1 / -1; }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    cursor: pointer;
-    user-select: none;
-    border-bottom: 1px solid var(--border-soft);
-    transition: background 0.15s;
-  }
-  .card-header:hover { background: var(--off-white); }
-  .card-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .card-icon {
-    width: 32px;
-    height: 32px;
-    background: var(--blue-pale);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--blue);
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .card-icon.teal { background: var(--accent-teal-pale); color: var(--accent-teal); }
-  .card-icon.gold { background: var(--accent-gold-pale); color: var(--accent-gold); }
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .card-subtitle {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 1px;
-  }
-  .card-chevron {
-    font-size: 18px;
-    color: var(--text-faint);
-    transition: transform 0.3s ease;
-  }
-  .card.open .card-chevron { transform: rotate(180deg); }
-
-  .card-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .card.open .card-body { max-height: 2000px; }
-  .card-body-inner { padding: 1.5rem; }
-
-  /* ── EXPERIENCE ── */
-  .exp-item {
-    display: flex;
-    gap: 14px;
-    padding-bottom: 1.5rem;
-    position: relative;
-  }
-  .exp-item:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    left: 9px;
-    top: 20px;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-  .exp-dot-wrap { flex-shrink: 0; padding-top: 3px; }
-  .exp-dot {
-    width: 19px;
-    height: 19px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 2px solid var(--blue);
-    position: relative;
-    z-index: 1;
-  }
-  .exp-dot.current { background: var(--blue); }
-  .exp-role {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--navy);
-    margin-bottom: 2px;
-  }
-  .exp-org {
-    font-size: 13px;
-    color: var(--blue);
-    font-weight: 400;
-    margin-bottom: 3px;
-  }
-  .exp-date {
-    font-size: 11px;
-    color: var(--text-faint);
-    letter-spacing: 0.3px;
-    margin-bottom: 8px;
-  }
-  .exp-bullets {
-    list-style: none;
-    padding: 0;
-  }
-  .exp-bullets li {
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.6;
-    padding: 3px 0 3px 14px;
-    position: relative;
-  }
-  .exp-bullets li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--blue-muted);
-    font-size: 11px;
-  }
-
-  /* ── CERTIFICATIONS ── */
-  .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .cert-item {
-    background: var(--off-white);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .cert-icon { color: var(--blue); font-size: 16px; margin-top: 1px; flex-shrink: 0; }
-  .cert-name { font-size: 13px; font-weight: 500; color: var(--navy); }
-  .cert-detail { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.3px;
-    margin-top: 4px;
-  }
-  .badge-active { background: var(--accent-teal-pale); color: var(--accent-teal); }
-  .badge-blue { background: var(--blue-pale); color: var(--blue); }
-
-  /* ── AWARDS ── */
-  .award-list { list-style: none; }
-  .award-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .award-item:last-child { border-bottom: none; }
-  .award-icon { color: var(--accent-gold); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .award-name { font-size: 13px; font-weight: 500; color: var(--navy); }
-  .award-year { font-size: 11px; color: var(--text-muted); }
-
-  /* ── SKILLS ── */
-  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .skill-pill {
-    background: var(--off-white);
-    border: 1px solid var(--border-soft);
-    border-radius: 20px;
-    padding: 7px 14px;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--text-mid);
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .skill-pill i { color: var(--blue); font-size: 13px; }
-
-  /* ── AFFILIATIONS ── */
-  .affil-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .affil-item:last-child { border-bottom: none; }
-  .affil-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--blue);
-    flex-shrink: 0;
-  }
-  .affil-name { font-size: 13px; color: var(--navy); }
-
-  /* ── PUBLICATIONS ── */
-  .pub-item {
-    background: var(--off-white);
-    border: 1px solid var(--border-soft);
-    border-left: 3px solid var(--blue);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-  }
-  .pub-item:last-child { margin-bottom: 0; }
-  .pub-citation { font-size: 13px; color: var(--text-mid); line-height: 1.65; }
-  .pub-citation em { font-style: italic; color: var(--navy); }
-  .pub-type {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 6px;
-  }
-
-  /* ── PRESENTATIONS ── */
-  .pres-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .pres-item:last-child { border-bottom: none; }
-  .pres-icon { color: var(--blue); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .pres-name { font-size: 13px; font-weight: 500; color: var(--navy); }
-  .pres-date { font-size: 11px; color: var(--text-muted); }
-
-  /* ── EDUCATION ── */
-  .edu-item {
-    display: flex;
-    gap: 14px;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border-soft);
-    margin-bottom: 1.25rem;
-  }
-  .edu-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .edu-icon-wrap {
-    width: 38px;
-    height: 38px;
-    background: var(--blue-pale);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--blue);
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-  .edu-degree { font-size: 14px; font-weight: 500; color: var(--navy); }
-  .edu-school { font-size: 13px; color: var(--blue); }
-  .edu-year { font-size: 11px; color: var(--text-faint); }
-
-  /* ── CONTACT ── */
-  .contact-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-soft);
-    font-size: 13px;
-    color: var(--text-mid);
-    text-decoration: none;
-  }
-  .contact-row:last-of-type { border-bottom: none; }
-  .contact-row i { color: var(--blue); font-size: 17px; width: 20px; text-align: center; flex-shrink: 0; }
-  .contact-row:hover { color: var(--navy); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy);
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 12px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.3px;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 0 1.25rem; }
-    .nav-links { display: none; }
-    .hero { padding: 2.5rem 1.25rem 2rem; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-avatar { display: none; }
-    .hero h1 { font-size: 30px; }
-    .stats-inner { grid-template-columns: repeat(3, 1fr); padding: 0 1.25rem; }
-    .stat:nth-child(4), .stat:nth-child(5) { display: none; }
-    .main { padding: 1.25rem; grid-template-columns: 1fr; gap: 1rem; }
-    .card.full-width { grid-column: 1; }
-    .cert-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
-  }
+/* sidebar lists */
+.list { display: grid; gap: 14px; }
+.list .row { display: flex; gap: 12px; }
+.list .row .ico { width: 38px; height: 38px; font-size: 1.1rem; }
+.list h3 { font-size: .93rem; line-height: 1.35; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { background: var(--teal-soft); color: var(--teal); font-weight: 700; font-size: .82rem; padding: 6px 12px; border-radius: 999px; }
+.badge.blue { background: var(--tint); color: var(--fg); border: 1px solid var(--line); font-weight: 600; }
+.pub { display: flex; flex-direction: column; gap: 4px; padding-block: 12px; border-top: 1px solid var(--line); }
+.pub:first-of-type { border-top: 0; padding-top: 0; }
+.pub a { font-weight: 600; font-size: .88rem; }
+.contact-line { display: flex; align-items: center; gap: 10px; overflow-wrap: anywhere; }
+.contact-line .ico { width: 34px; height: 34px; font-size: 1rem; }
+footer { text-align: center; color: var(--muted); font-size: .85rem; padding-block: 24px; border-top: 1px solid var(--line); background: var(--surface); }
 </style>
-</head>
-<body>
 
-<nav>
-  <div class="nav-logo">Justine Moore <span>RN · MSN · VA-BC · CPHQ</span></div>
-  <ul class="nav-links">
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#publications">Research</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
-  </ul>
-</nav>
+<nav><div class="wrap">
+  <b id="navName"></b>
+  <a href="#impact">Impact</a><a href="#experience">Experience</a><a href="#publications">Publications</a><a href="#contact">Contact</a>
+</div></nav>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-line"></div>
-        <span class="hero-eyebrow-text">Program Operations Manager · Yale New Haven Hospital</span>
-      </div>
-      <h1>Justine Moore</h1>
-      <p class="hero-credentials">RN, MSN, VA-BC, CPHQ</p>
-      <p class="hero-summary">
-        Executive-prepared Registered Nurse and Certified Professional in Healthcare Quality with 30 years of progressive leadership experience in academic medical center operations, quality improvement, and regulatory compliance. Recognized for building high-performing teams, advancing patient safety, and improving outcomes through Lean, DMAIC, and evidence-based practice.
-      </p>
-      <div class="hero-actions">
-        <a href="mailto:Seajaymoore@att.net" class="btn-primary"><i class="ti ti-mail"></i> Get in Touch</a>
-        <a href="tel:2035005056" class="btn-outline"><i class="ti ti-phone"></i> 203-500-5056</a>
-      </div>
-    </div>
-
-    <div class="hero-avatar" style="overflow:hidden;">
-        <img src="JustineMoore.png" alt="Justine Moore" style="width:100%;height:100%;object-fit:cover;border-radius:50%;object-position: top center;" />
-    </div>
-
-
-  </div>
-</section>
-
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <span class="stat-num">30+</span>
-      <span class="stat-label">Years Experience</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">24</span>
-      <span class="stat-label">Units Overseen</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">CPHQ</span>
-      <span class="stat-label">Quality Certified</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">MSN</span>
-      <span class="stat-label">Executive Nursing</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">2</span>
-      <span class="stat-label">Publications</span>
-    </div>
-  </div>
+<div class="cover" id="cover">
+  <!-- Default cover art. Replace by setting SITE.cover below. -->
+  <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke-opacity=".55" stroke-width="4" d="M0 150 H330 L350 150 L372 96 L400 196 L428 52 L456 150 H640 L660 150 L682 118 L706 176 L724 150 H1200"/>
+      <path stroke-opacity=".18" stroke-width="4" d="M0 190 H200 L220 190 L240 160 L262 214 L280 190 H1200"/>
+    </g>
+    <g fill="#fff" fill-opacity=".14">
+      <path d="M1010 40h18v18h18v18h-18v18h-18V76h-18V58h18z"/>
+      <path d="M130 30h12v12h12v12h-12v12h-12V54h-12V42h12z"/>
+      <path d="M880 150h12v12h12v12h-12v12h-12v-12h-12v-12h12z"/>
+    </g>
+  </svg>
 </div>
 
-<main class="main">
-
-  <!-- EXPERIENCE -->
-  <div class="card full-width open" id="experience">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon"><i class="ti ti-briefcase"></i></div>
-        <div>
-          <div class="card-title">Professional Experience</div>
-          <div class="card-subtitle">Yale New Haven Hospital · 2001–Present</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        
-        
-        <div class="exp-item">
-          <div class="exp-dot-wrap"><div class="exp-dot current"></div></div>
-          <div>
-            <div class="exp-role">Adjunct Professor</div>
-            <div class="exp-org">Albertus Magnus College</div>
-            <div class="exp-date">2026 – Present</div>
-            <ul class="exp-bullets">
-              <li>Notes Here on the Experience</li>
-            </ul>
-          </div>
-        </div>
-
-
-
-
-        <div class="exp-item">
-          <div class="exp-dot-wrap"><div class="exp-dot current"></div></div>
-          <div>
-            <div class="exp-role">Medicine Services Manager</div>
-            <div class="exp-org">Yale New Haven Hospital (YNHHS)</div>
-            <div class="exp-date">2019 – Present</div>
-            <ul class="exp-bullets">
-              <li>Provide operational and performance leadership for 24 inpatient medicine units within a large academic health system, ensuring alignment with YNHHS strategic priorities, regulatory requirements, and quality standards.</li>
-              <li>Lead system-level quality and safety initiatives, partnering with nursing, medical, quality, informatics, and executive stakeholders to improve outcomes and workflow reliability.</li>
-              <li>Analyze operational, quality, and safety data to identify risk, trends, and opportunities for improvement; develop and implement corrective action plans with accountable leaders.</li>
-              <li>Support managers and frontline leaders through coaching, performance oversight, and change management during complex operational initiatives and organizational transformation.</li>
-              <li>Ensure consistency and fidelity to evidence-based practices, policies, and regulatory expectations across all medicine service lines.</li>
-            </ul>
-          </div>
-        </div>
-
-
-
-        <div class="exp-item">
-          <div class="exp-dot-wrap"><div class="exp-dot"></div></div>
-          <div>
-            <div class="exp-role">Clinical Outcomes Leader</div>
-            <div class="exp-org">Yale New Haven Hospital</div>
-            <div class="exp-date">2017 – 2019</div>
-            <ul class="exp-bullets">
-              <li>Partnered with nursing and physician leadership to monitor quality, safety, and performance metrics across inpatient services.</li>
-              <li>Led root-cause analyses, corrective action planning, and quality improvement initiatives to address sentinel events, regulatory gaps, and performance variance.</li>
-              <li>Supported implementation of evidence-based practices to improve patient outcomes and sustain compliance with organizational standards.</li>
-            </ul>
-          </div>
-        </div>
-
-
-
-
-        <div class="exp-item">
-          <div class="exp-dot-wrap"><div class="exp-dot"></div></div>
-          <div>
-            <div class="exp-role">Critical Care Nurse</div>
-            <div class="exp-org">Yale New Haven Hospital</div>
-            <div class="exp-date">2001 – 2017</div>
-            <ul class="exp-bullets">
-              <li>Delivered high-acuity care while championing patient safety and early deterioration detection across a Level I academic medical center ICU.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+<header class="profile"><div class="wrap">
+  <div class="avatar" id="avatar"></div>
+  <div class="who">
+    <h1 id="name"></h1>
+    <p class="creds" id="creds"></p>
+    <p class="title" id="title"></p>
+    <p class="loc" id="loc"></p>
   </div>
+  <div class="btns" id="heroLinks"></div>
+</div></header>
 
-  <!-- EDUCATION -->
-  <div class="card" id="education">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon teal"><i class="ti ti-school"></i></div>
-        <div>
-          <div class="card-title">Education</div>
-          <div class="card-subtitle">MSN · BSN · IHI</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
+<main><div class="wrap">
+  <div class="stats" id="stats"></div>
+  <div class="cols">
+    <div class="stack">
+      <section class="box" id="about"><h2></h2><p id="summary"></p></section>
+      <section class="box" id="impact"><h2></h2><div class="cards" id="initiatives"></div></section>
+      <section class="box" id="experience"><h2></h2><div id="jobs"></div></section>
+      <section class="box" id="publications"><h2></h2><div id="pubs"></div><div class="badges" id="pres" style="margin-top:14px"></div></section>
     </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <div class="edu-item">
-          <div class="edu-icon-wrap"><i class="ti ti-award"></i></div>
-          <div>
-            <div class="edu-degree">MSN, Executive Nursing</div>
-            <div class="edu-school">Chamberlain University</div>
-            <div class="edu-year">2020</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-icon-wrap"><i class="ti ti-award"></i></div>
-          <div>
-            <div class="edu-degree">BSN, Nursing</div>
-            <div class="edu-school">Southern Connecticut State University</div>
-            <div class="edu-year">1998</div>
-          </div>
-        </div>
-        <div class="edu-item">
-          <div class="edu-icon-wrap"><i class="ti ti-certificate"></i></div>
-          <div>
-            <div class="edu-degree">Leading Quality Improvement</div>
-            <div class="edu-school">Institute for Healthcare Improvement (IHI)</div>
-            <div class="edu-year">Continuing Education</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <aside class="stack">
+      <section class="box" id="education"><h2></h2><div class="list" id="edu"></div></section>
+      <section class="box" id="certs"><h2></h2><div class="badges" id="certList"></div></section>
+      <section class="box" id="honors"><h2></h2><div class="list" id="honorList"></div></section>
+      <section class="box" id="affil"><h2></h2><div class="badges" id="affilList"></div></section>
+      <section class="box" id="contact"><h2></h2><div class="list" id="contactList"></div></section>
+    </aside>
   </div>
-
-  <!-- SKILLS -->
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon"><i class="ti ti-bulb"></i></div>
-        <div>
-          <div class="card-title">Core Competencies</div>
-          <div class="card-subtitle">Leadership · Quality · Strategy</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <div class="skills-grid">
-          <div class="skill-pill"><i class="ti ti-users"></i> Leadership &amp; Team Management</div>
-          <div class="skill-pill"><i class="ti ti-chart-line"></i> Quality Improvement (Lean, DMAIC)</div>
-          <div class="skill-pill"><i class="ti ti-target"></i> Strategic Planning &amp; Goal Alignment</div>
-          <div class="skill-pill"><i class="ti ti-settings"></i> Process Improvement &amp; PDSA</div>
-          <div class="skill-pill"><i class="ti ti-database"></i> Data Analysis &amp; Outcomes Reporting</div>
-          <div class="skill-pill"><i class="ti ti-clipboard-check"></i> Regulatory &amp; Accreditation Compliance</div>
-          <div class="skill-pill"><i class="ti ti-presentation"></i> Stakeholder Engagement</div>
-          <div class="skill-pill"><i class="ti ti-shield-check"></i> Program Fidelity &amp; Risk Mitigation</div>
-          <div class="skill-pill"><i class="ti ti-heart-rate-monitor"></i> EPIC EMR</div>
-          <div class="skill-pill"><i class="ti ti-trending-up"></i> Six Sigma Principles</div>
-          <div class="skill-pill"><i class="ti ti-pencil"></i> Mentoring &amp; Coaching</div>
-          <div class="skill-pill"><i class="ti ti-refresh"></i> Change Management</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CERTIFICATIONS -->
-  <div class="card" id="certifications">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon gold"><i class="ti ti-certificate"></i></div>
-        <div>
-          <div class="card-title">Certifications</div>
-          <div class="card-subtitle">CPHQ · VA-BC · BLS · PICC · FEMA</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <div class="cert-grid">
-          <div class="cert-item">
-            <i class="ti ti-certificate cert-icon"></i>
-            <div>
-              <div class="cert-name">CPHQ</div>
-              <div class="cert-detail">Certified Professional in Healthcare Quality</div>
-              <span class="badge badge-active">Active · 2024</span>
-            </div>
-          </div>
-          <div class="cert-item">
-            <i class="ti ti-certificate cert-icon"></i>
-            <div>
-              <div class="cert-name">VA-BC</div>
-              <div class="cert-detail">Vascular Access Board Certified</div>
-              <span class="badge badge-active">Recert · 2023</span>
-            </div>
-          </div>
-          <div class="cert-item">
-            <i class="ti ti-heart-rate-monitor cert-icon"></i>
-            <div>
-              <div class="cert-name">BLS · PICC · 3CG</div>
-              <div class="cert-detail">Basic Life Support &amp; Vascular Access</div>
-              <span class="badge badge-active">Active</span>
-            </div>
-          </div>
-          <div class="cert-item">
-            <i class="ti ti-shield cert-icon"></i>
-            <div>
-              <div class="cert-name">IHI Safety &amp; Quality Certificate</div>
-              <div class="cert-detail">Institute for Healthcare Improvement</div>
-              <span class="badge badge-blue">2018</span>
-            </div>
-          </div>
-          <div class="cert-item">
-            <i class="ti ti-building-community cert-icon"></i>
-            <div>
-              <div class="cert-name">FEMA Emergency Management</div>
-              <div class="cert-detail">Emergency Management Certificate</div>
-              <span class="badge badge-blue">2020</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AWARDS -->
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon gold"><i class="ti ti-trophy"></i></div>
-        <div>
-          <div class="card-title">Awards &amp; Honors</div>
-          <div class="card-subtitle">Nurse of the Year · Titler Award · Scholarships</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <ul class="award-list">
-          <li class="award-item">
-            <i class="ti ti-trophy award-icon"></i>
-            <div>
-              <div class="award-name">Marita Titler Evidence-Based Nursing Award</div>
-              <div class="award-year">YNHHS · 2023</div>
-            </div>
-          </li>
-          <li class="award-item">
-            <i class="ti ti-trophy award-icon"></i>
-            <div>
-              <div class="award-name">NAHQ Leading Quality Improvement for Managers</div>
-              <div class="award-year">2024</div>
-            </div>
-          </li>
-          <li class="award-item">
-            <i class="ti ti-star award-icon"></i>
-            <div>
-              <div class="award-name">AVA Scholarship Recipient</div>
-              <div class="award-year">Association for Vascular Access · 2022</div>
-            </div>
-          </li>
-          <li class="award-item">
-            <i class="ti ti-star award-icon"></i>
-            <div>
-              <div class="award-name">AHA Scholarship Recipient</div>
-              <div class="award-year">American Heart Association · 2021</div>
-            </div>
-          </li>
-          <li class="award-item">
-            <i class="ti ti-medal award-icon"></i>
-            <div>
-              <div class="award-name">Special Recognition Awards</div>
-              <div class="award-year">YNHH · 2014, 2019, 2021, 2023</div>
-            </div>
-          </li>
-          <li class="award-item">
-            <i class="ti ti-crown award-icon"></i>
-            <div>
-              <div class="award-name">YNHH Nurse of the Year</div>
-              <div class="award-year">Yale New Haven Hospital · 2001</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- PUBLICATIONS -->
-  <div class="card full-width" id="publications">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon teal"><i class="ti ti-file-text"></i></div>
-        <div>
-          <div class="card-title">Publications &amp; Presentations</div>
-          <div class="card-subtitle">Research · Conferences · JAVA · NAHQ</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
-        <div>
-          <p style="font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Peer-Reviewed Publications</p>
-          <div class="pub-item">
-            <div class="pub-type">Journal of the Association for Vascular Access · 2025</div>
-            <p class="pub-citation">Moore, J., &amp; McMahon, K. P. (2025). A Quality Improvement PDSA to Evaluate the Effectiveness of Blood Diversion Using a Three-Way Connector During Blood Culture Collection. <em>Journal of the Association for Vascular Access, 30</em>(3), 17–22.</p>
-          </div>
-          <div class="pub-item">
-            <div class="pub-type">Peer-Reviewed · In Press</div>
-            <p class="pub-citation">Moore, J., Wall, A., Merenguelli, R., Smith, C., Thayer, L., &amp; Rivera-Vinas, J. <em>Female external urinary catheters: A nurse-led intervention.</em></p>
-          </div>
-        </div>
-        <div>
-          <p style="font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Conference Presentations</p>
-          
-          
-          <div class="pres-item">
-            <i class="ti ti-presentation pres-icon"></i>
-            <div>
-              <div class="pres-name">AMSN Conference</div>
-              <div class="pres-date">Presenter · 2025</div>
-            </div>
-          </div>
-
-          <div class="pres-item">
-            <i class="ti ti-presentation pres-icon"></i>
-            <div>
-              <div class="pres-name">CT Nursing Research Conference</div>
-              <div class="pres-date">Presenter · 2019–2025</div>
-            </div>
-          </div>
-
-
-          <div class="pres-item">
-            <i class="ti ti-presentation pres-icon"></i>
-            <div>
-              <div class="pres-name">NAHQ Next</div>
-              <div class="pres-date">National Conference Presenter · 2024</div>
-            </div>
-          </div>
-
-
-          <div class="pres-item">
-            <i class="ti ti-presentation pres-icon"></i>
-            <div>
-              <div class="pres-name">AVAS Scientific Meeting</div>
-              <div class="pres-date">Presenter · 2023–2025</div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AFFILIATIONS + CONTACT (side by side) -->
-  <div class="card">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon"><i class="ti ti-users-group"></i></div>
-        <div>
-          <div class="card-title">Professional Affiliations</div>
-          <div class="card-subtitle">AVA · NAHQ · AONL</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <div class="affil-item">
-          <div class="affil-dot"></div>
-          <div class="affil-name">Association for Vascular Access (AVA)</div>
-        </div>
-        <div class="affil-item">
-          <div class="affil-dot"></div>
-          <div class="affil-name">NAHQ — National Association for Healthcare Quality</div>
-        </div>
-        <div class="affil-item">
-          <div class="affil-dot"></div>
-          <div class="affil-name">American Organization for Nursing Leadership (AONL)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" id="contact">
-    <div class="card-header" onclick="toggleCard(this)">
-      <div class="card-header-left">
-        <div class="card-icon teal"><i class="ti ti-address-book"></i></div>
-        <div>
-          <div class="card-title">Contact</div>
-          <div class="card-subtitle">Branford, CT · Available for Opportunities</div>
-        </div>
-      </div>
-      <i class="ti ti-chevron-down card-chevron"></i>
-    </div>
-    <div class="card-body">
-      <div class="card-body-inner">
-        <a class="contact-row" href="mailto:Seajaymoore@att.net">
-          <i class="ti ti-mail"></i>
-          <span>Seajaymoore@att.net</span>
-        </a>
-        <a class="contact-row" href="tel:2035005056">
-          <i class="ti ti-phone"></i>
-          <span>203-500-5056</span>
-        </a>
-        
-        
-        <div class="contact-row">
-          <i class="ti ti-building-hospital"></i>
-          <span>Yale New Haven Hospital — YNHHS</span>
-        </div>
-        <div style="margin-top:1.25rem;">
-          <a href="mailto:Seajaymoore@att.net" class="btn-primary" style="width:100%;justify-content:center;">
-            <i class="ti ti-send"></i> Send a Message
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  &copy; 2026 Justine Moore, RN, MSN, VA-BC, CPHQ &nbsp;·&nbsp; Branford, CT
-</footer>
+</div></main>
+<footer id="footer"></footer>
 
 <script>
-  function toggleCard(header) {
-    const card = header.closest('.card');
-    card.classList.toggle('open');
-  }
+/* ============================================================
+   EDIT HERE. The page builds itself from this block.
+   - To add an item, copy one line/object in a list and change the text.
+   - Set a link to a real address, or leave "#" as a placeholder.
+     Set a link to "" to hide its button.
+   - Icons you can use: shield, drop, heart, pulse, check, award, book,
+     cap, users, chart, clock, file, mail, phone, link, pin
+   ============================================================ */
+const SITE = {
+  name: "Justine Moore",
+  initials: "JM",
+  creds: "RN, MSN, VA-BC, CPHQ",
+  title: "Manager, Clinical Operations at Yale New Haven Hospital",
+  location: "Branford, CT",
+  photo: "images/JustineMoore.png",   // profile photo: paste an image address, e.g. "images/justine.jpg"
+  cover: "",   // cover image: paste an image address, e.g. "images/cover.jpg"
+  heroLinks: [
+    { label: "Email", icon: "mail", url: "mailto:Seajaymoore@att.net", primary: true },
+    { label: "LinkedIn", icon: "link", url: "https://www.linkedin.com/in/justine-moore-87687590" },
+    { label: "Resume (PDF)", icon: "file", url: "#" }
+  ],
+  summary: "Nurse leader with 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness using Lean, DMAIC, PDSA, and root cause analysis.",
+  stats: [
+    { icon: "clock",  value: "25 yrs", label: "Experience at Yale New Haven Hospital" },
+    { icon: "shield", value: "88%",    label: "CAUTI reduction" },
+    { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART (YNHHS)" },
+    { icon: "check",  value: "0",      label: "Findings, 2026 accreditation" }
+  ],
+  initiatives: [
+    { icon: "shield", metric: "-88%", title: "CAUTI", text: "Improved processes around urinary retention. Daily catheter audit compliance up 4%.", link: "#" },
+    { icon: "drop",   metric: "-47%", title: "CLABSI, Hemodialysis", text: "Quality improvement project for patients receiving hemodialysis.", link: "#" },
+    { icon: "shield", metric: "-39%", title: "HAI CDI", text: "Earlier detection within the first 3 days of admission.", link: "#" },
+    { icon: "shield", metric: "-13%", title: "MRSA Infections", text: "Accountability for maintenance bundles.", link: "#" },
+    { icon: "heart",  metric: "-31%", title: "Pressure Injury", text: "Prevalence fell from 5.10 (FY26 Q3) to a preliminary 3.5 (FY26 Q4), the lowest in two fiscal years.", link: "#" },
+    { icon: "pulse",  metric: "-40%", title: "eCART Mortality", text: "Time to first view up 14%, disposition compliance up 20%. YNHHS mortality down 40% for elevated scores.", link: "#" },
+    { icon: "chart",  metric: "+18%", title: "Discharges by 11am", text: "Also a 3% reduction in average length of stay.", link: "#" }
+  ],
+  experience: [
+    { role: "Manager, Clinical Operations", org: "Yale New Haven Hospital", dates: "2023 – Present", current: true,
+      bullets: [
+        "Strategic oversight of quality, patient safety, regulatory readiness, and clinical effectiveness for inpatient medicine services.",
+        "Built unit- and service line-level performance scorecards for visibility and accountability.",
+        "Redesigned Healthy Skin governance into a performance improvement framework. DPH reportable events ran 31% below historical performance, April to September 2026.",
+        "Expanded wound care RN staffing to meet national standards.",
+        "Prepared the organization for Joint Commission, CMS, and DPH surveys, using statistical process control to monitor sustainability.",
+        "Recruit, mentor, coach, and evaluate leaders and clinical staff, including succession planning."
+      ] },
+    { role: "Adjunct Professor", org: "Albertus Magnus College", dates: "2026 – Present" },
+    { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", dates: "2017 – 2023" },
+    { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", dates: "2001 – 2017" }
+  ],
+  publications: [
+    { text: "Moore, J., & McMahon, K.P. (2025). A Quality Improvement PDSA to Evaluate the Effectiveness of Blood Diversion Using a Three-Way Connector During Blood Culture Collection.", link: "#" },
+    { text: "Moore, J., Wall, A., Merenguelli, R., Smith, C., Thayer, L., & Rivera-Vinas, J. Female External Urinary Catheters: A Nurse-Led Intervention.", link: "#" }
+  ],
+  presentations: ["NAHQ Next", "AVA Scientific Meeting", "AMSN", "Connecticut Nursing Research Conference", "Janet Parkosewich Nursing Research Conference"],
+  education: [
+    { icon: "cap",  title: "MSN, Executive Leadership", sub: "Chamberlain University, 2022" },
+    { icon: "cap",  title: "BSN", sub: "Southern Connecticut State University, 1998" },
+    { icon: "book", title: "NAHQ Leading Quality Improvement for Managers", sub: "2024" }
+  ],
+  certifications: ["CPHQ", "VA-BC", "IHI Quality & Safety Certificate"],
+  honors: [
+    { title: "Marita Titler Evidence-Based Practice Award", sub: "2024" },
+    { title: "Yale New Haven Hospital Nurse of the Year", sub: "" },
+    { title: "Multiple YNHH Special Recognition Awards", sub: "" }
+  ],
+  affiliations: ["NAHQ", "CHA Quality Management Group", "AVA"],
+  contact: [
+    { icon: "mail",  text: "Seajaymoore@att.net", url: "mailto:Seajaymoore@att.net" },
+    { icon: "phone", text: "203-500-5056", url: "tel:2035005056" },
+    { icon: "link",  text: "linkedin.com/in/justine-moore-87687590", url: "https://www.linkedin.com/in/justine-moore-87687590" }
+  ]
+};
 
-  // Open cards that are in viewport on load (experience is pre-opened)
-  document.querySelectorAll('.card:not(.full-width)').forEach(card => {
-    card.classList.add('open');
-  });
+/* ---------- Page builder (no need to edit below) ---------- */
+const P = {
+  shield: "M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6zM9 12l2 2 4-4",
+  drop: "M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z",
+  heart: "M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z",
+  pulse: "M3 12h4l2-6 4 12 2-6h6",
+  check: "M5 12l5 5 9-10",
+  award: "M12 3a6 6 0 1 0 0 12 6 6 0 0 0 0-12zM8.5 14.5L7 21l5-3 5 3-1.5-6.5",
+  book: "M4 4h10a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z",
+  cap: "M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5",
+  users: "M16 20v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7",
+  chart: "M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-9",
+  clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2",
+  file: "M6 3h8l4 4v14H6zM14 3v4h4",
+  mail: "M3 6h18v12H3zM3 7l9 6 9-6",
+  phone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z",
+  link: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
+  pin: "M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+};
+const icon = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n] || P.check}"/></svg>`;
+const $ = id => document.getElementById(id);
+const ext = u => /^https?:/.test(u) ? ' target="_blank" rel="noopener"' : "";
+const head = (id, ic, text, tone) => { $(id).querySelector("h2").innerHTML = `<span class="ico ${tone || ""}">${icon(ic)}</span>${text}`; };
+const S = SITE;
+
+$("navName").innerHTML = icon("pulse") + S.name;
+$("name").textContent = S.name;
+$("creds").textContent = S.creds;
+$("title").textContent = S.title;
+$("loc").innerHTML = icon("pin") + S.location;
+$("footer").textContent = "© " + new Date().getFullYear() + " " + S.name;
+if (S.cover) { $("cover").style.backgroundImage = `url("${S.cover}")`; $("cover").classList.add("has-image"); }
+if (S.photo) { $("avatar").style.backgroundImage = `url("${S.photo}")`; } else { $("avatar").textContent = S.initials; }
+$("heroLinks").innerHTML = S.heroLinks.filter(l => l.url).map(l => `<a class="btn ${l.primary ? "fill" : ""}" href="${l.url}"${ext(l.url)}>${icon(l.icon)}${l.label}</a>`).join("");
+$("stats").innerHTML = S.stats.map((s, i) => `<div class="stat"><span class="ico ${i % 2 ? "teal" : ""}">${icon(s.icon)}</span><div><b>${s.value}</b><span>${s.label}</span></div></div>`).join("");
+
+head("about", "heart", "About");
+$("summary").textContent = S.summary;
+head("impact", "chart", "Quality &amp; Safety Impact", "teal");
+$("initiatives").innerHTML = S.initiatives.map(c => `<article class="card"><div class="top"><span class="ico">${icon(c.icon)}</span><span class="metric">${c.metric}</span></div><h3>${c.title}</h3><p>${c.text}</p>${c.link ? `<a class="more" href="${c.link}"${ext(c.link)}>Learn more</a>` : ""}</article>`).join("");
+head("experience", "users", "Experience");
+$("jobs").innerHTML = S.experience.map(j => `<div class="job ${j.current ? "now" : ""}"><h3>${j.role}</h3><p class="sub">${j.org} · ${j.dates}</p>${j.bullets ? `<ul>${j.bullets.map(b => `<li>${b}</li>`).join("")}</ul>` : ""}</div>`).join("");
+head("publications", "book", "Publications &amp; Presentations", "teal");
+$("pubs").innerHTML = S.publications.map(p => `<div class="pub"><p>${p.text}</p>${p.link ? `<a href="${p.link}"${ext(p.link)}>Read publication</a>` : ""}</div>`).join("");
+$("pres").innerHTML = S.presentations.map(t => `<span class="badge blue">${t}</span>`).join("");
+
+head("education", "cap", "Education");
+$("edu").innerHTML = S.education.map(e => `<div class="row"><span class="ico">${icon(e.icon)}</span><div><h3>${e.title}</h3><p class="sub">${e.sub}</p></div></div>`).join("");
+head("certs", "check", "Certifications", "teal");
+$("certList").innerHTML = S.certifications.map(c => `<span class="badge">${c}</span>`).join("");
+head("honors", "award", "Honors");
+$("honorList").innerHTML = S.honors.map(h => `<div class="row"><span class="ico teal">${icon("award")}</span><div><h3>${h.title}</h3>${h.sub ? `<p class="sub">${h.sub}</p>` : ""}</div></div>`).join("");
+head("affil", "users", "Affiliations", "teal");
+$("affilList").innerHTML = S.affiliations.map(a => `<span class="badge blue">${a}</span>`).join("");
+head("contact", "mail", "Contact");
+$("contactList").innerHTML = S.contact.map(c => `<div class="contact-line"><span class="ico teal">${icon(c.icon)}</span><a href="${c.url}"${ext(c.url)}>${c.text}</a></div>`).join("");
 </script>
-
-</body>
-</html>
