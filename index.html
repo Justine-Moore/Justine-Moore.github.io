@@ -90,16 +90,26 @@ h3 { font-size: .95rem; line-height: 1.35; }
 .card a { font-size: .82rem; margin-top: 4px; }
 
 /* experience */
-.exp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 20px; align-items: start; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.seg button { font: 600 .9rem var(--body); padding: 9px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--tint); color: var(--muted); cursor: pointer; }
+.seg button:hover { border-color: var(--teal); color: var(--fg); }
+.seg button[aria-selected="true"] { background: var(--teal); border-color: var(--teal); color: var(--on-teal); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.gallery figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.gallery img, .ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; }
+.ph { background: var(--tint); border: 2px dashed var(--line); display: grid; place-items: center; text-align: center; color: var(--muted); font-size: .8rem; }
+.ph .i { width: 2em; height: 2em; }
+.gallery figcaption { font-size: .88rem; font-weight: 600; text-align: center; }
+.exp { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 18px; align-items: start; }
 @media (max-width: 760px) { .exp { grid-template-columns: minmax(0, 1fr); } }
-.jobs-list { display: grid; gap: 8px; }
-.jobs-list button { text-align: left; font: inherit; color: var(--fg); background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; display: grid; gap: 2px; }
-.jobs-list button b { font-size: .92rem; line-height: 1.3; }
-.jobs-list button span { color: var(--muted); font-size: .8rem; }
-.jobs-list button:hover { border-color: var(--teal); }
-.jobs-list button.on { background: var(--teal-soft); border-color: var(--teal); box-shadow: inset 4px 0 0 var(--teal); }
-.job-detail { background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-height: 280px; }
-.job-detail p.sum { margin-top: 10px; font-size: .9rem; }
+.job-main { background: var(--tint); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+.job-main h3 { font-size: 1.25rem; }
+.job-main h4 { margin: 18px 0 4px; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.job-main p.sum { margin-top: 12px; }
+.side { display: grid; gap: 10px; }
+.mini { border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+.mini b { display: block; font-size: .88rem; line-height: 1.3; }
+.mini span { display: block; color: var(--muted); font-size: .78rem; margin-top: 2px; }
 .job ul { padding-left: 18px; margin-top: 10px; }
 .job li { margin-block: 5px; font-size: .88rem; }
 .job li::marker { color: var(--teal); }
@@ -172,12 +182,14 @@ footer { text-align: center; color: var(--muted); font-size: .82rem; padding-blo
     </section>
 
     <section class="panel" data-title="Impact" data-icon="chart">
-      <h2>Quality &amp; Safety Impact</h2><div class="cards" id="initiatives"></div>
+      <h2>Quality &amp; Safety Impact</h2>
+      <div class="seg" id="impactTabs" role="tablist"></div>
+      <div class="gallery" id="gallery"></div>
     </section>
 
     <section class="panel" data-title="Experience" data-icon="users">
-      <h2>Experience</h2><p class="sub" style="margin:-8px 0 14px">Select a role to see details.</p>
-      <div class="exp"><div class="jobs-list" id="jobs"></div><div class="job-detail job" id="jobDetail" aria-live="polite"></div></div>
+      <h2>Experience</h2>
+      <div class="exp"><div class="job-main job" id="jobMain"></div><div class="side" id="jobSide"></div></div>
     </section>
 
     <section class="panel" data-title="Credentials" data-icon="cap">
@@ -225,44 +237,61 @@ const SITE = {
     { label: "Resume (PDF)", icon: "file", url: "#" }
   ],
   contact: [
-    { icon: "mail",  text: "Seajaymoore@att.net" },
+    { icon: "mail",  text: "seajaymoore@att.net" },
     { icon: "phone", text: "203-500-5056" }
   ],
-  summary: "Nurse leader with over 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
+  summary: "Nurse leader with 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
   stats: [
-    { icon: "clock",  value: "26 yrs", label: "At Yale New Haven Hospital" },
+    { icon: "clock",  value: "25 yrs", label: "At Yale New Haven Hospital" },
     { icon: "shield", value: "88%",    label: "CAUTI reduction" },
     { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART" },
-    { icon: "check",  value: "0",      label: "Findings, 2026 accreditation" }
   ],
   skills: ["Lean", "DMAIC", "PDSA", "Root Cause Analysis", "Statistical Process Control", "Joint Commission / CMS / DPH Readiness", "Performance Scorecards", "Leadership Development"],
-  initiatives: [
-    { icon: "shield", metric: "-88%", title: "CAUTI", text: "Better processes around urinary retention.", link: "#" },
-    { icon: "drop",   metric: "-47%", title: "CLABSI, Hemodialysis", text: "Quality improvement project.", link: "#" },
-    { icon: "shield", metric: "-39%", title: "HAI CDI", text: "Early detection within 3 days of admission.", link: "#" },
-    { icon: "shield", metric: "-13%", title: "MRSA Infections", text: "Accountability for maintenance bundles.", link: "#" },
-    { icon: "heart",  metric: "-31%", title: "Pressure Injury", text: "Prevalence 5.10 to a preliminary 3.5, lowest in two years.", link: "#" },
-    { icon: "pulse",  metric: "-40%", title: "eCART Mortality", text: "YNHHS result. First-view compliance +14%, disposition +20%.", link: "#" },
-    { icon: "chart",  metric: "+18%", title: "Discharges by 11am", text: "Plus a 3% cut in average length of stay.", link: "#" },
-    { icon: "check",  metric: "0",    title: "Survey Findings", text: "2026 Joint Commission, CMS, and DPH readiness.", link: "#" }
+  /* Impact tabs. Add "src" paths for your photos, e.g. src: "images/hai-1.jpg". Add more photos by copying a line. */
+  impact: [
+    { name: "Operations", photos: [
+      { src: "images/operations/eCART-Operations.png",                  caption: "Add photo name" },
+      { src: "images/operations/FromDataToDecisions-Operations.png",    caption: "Add photo name" },
+      { src: "images/operations/MedUnitWeekly-Operations.png",          caption: "Add photo name" },
+      { src: "images/operations/TransformingBedside-Operations.png",    caption: "Add photo name" },
+      { src: "images/operations/WildGoose-Operations.png",              caption: "Add photo name" }
+    ] },
+    { name: "HAI", photos: [
+      { src: "images/hai/AllEyes-HAI.png",               caption: "Add photo name" },
+      { src: "images/hai/BloodCultures-HAI.png",         caption: "Add photo name" },
+      { src: "images/hai/cDiff-HAI.png",                 caption: "Add photo name" },
+      { src: "images/hai/ShieldingLives-HAI.png",        caption: "Add photo name" }
+    ] },
+    { name: "HAPI", photos: [
+      { src: "images/hapi/ep46-HAPI.png",               caption: "Add photo name" },
+      { src: "images/hapi/HealthySkin-HAPI.png",        caption: "Add photo name" },
+      { src: "images/hapi/Skin-HAPI.png",               caption: "Add photo name" }
+    ] }
   ],
+  /* Experience: the first "main" role gets the large description. Others show small on the side. */
   experience: [
-    { role: "Manager, Clinical Operations", org: "Yale New Haven Hospital", dates: "2023 – Present", current: true,
-      bullets: [
-        "Oversee quality, patient safety, regulatory readiness, and clinical effectiveness for inpatient medicine.",
-        "Built unit- and service line-level performance scorecards.",
-        "Redesigned Healthy Skin governance. DPH reportable events ran 31% below historical performance, April to September 2026.",
-        "Expanded wound care RN staffing to meet national standards.",
-        "Use statistical process control to monitor sustainability.",
-        "Recruit, mentor, coach, and evaluate leaders and clinical staff."
+    { role: "Manager, Clinical Operations", org: "Yale New Haven Hospital", location: "New Haven, CT", dates: "2023 – Present", main: true,
+      summary: "Strategic oversight for quality, patient safety, regulatory readiness, operational performance, and clinical effectiveness across inpatient medicine services. Leads performance improvement work using Lean, DMAIC, PDSA, and root cause analysis.",
+      sections: [
+        { heading: "Enterprise Quality & Patient Safety", bullets: [
+          "Improved eCART time-to-first-view compliance by 14% and disposition compliance by 20%, contributing to a 40% reduction in hospital mortality among adult inpatients with an elevated score across YNHHS.",
+          "Reduced CAUTI events by 88%, improved CLABSI by 47% in hemodialysis patients, reduced HAI CDI by 39%, and reduced MRSA infections by 13%.",
+          "Built unit- and service line-level performance scorecards for visibility, accountability, and decision-making.",
+          "Supported operations in achieving a 3% reduction in average length of stay and an 18% improvement in discharges by 11am.",
+          "Redesigned Healthy Skin governance into a performance improvement framework. Hospital-acquired pressure injury prevalence fell 31%, from 5.10 to a preliminary 3.5, and DPH reportable events ran 31% below historical performance (April to September 2026)."
+        ] },
+        { heading: "Quality Analytics & Regulatory Oversight", bullets: [
+          "Supported readiness for Joint Commission, CMS, and DPH surveys, with zero findings in the 2026 accreditation.",
+          "Used statistical process control and trend analysis to drive action planning and monitor sustainability."
+        ] },
+        { heading: "Leadership & Workforce Development", bullets: [
+          "Recruit, mentor, coach, and evaluate leaders and clinical staff.",
+          "Lead engagement, recognition, and succession planning. Expanded wound care RN staffing to national standards."
+        ] }
       ] },
-    /* Placeholder text below: replace with real details for each role. */
-    { role: "Adjunct Professor", org: "Albertus Magnus College", dates: "2026 – Present",
-      bullets: ["Add courses taught and teaching focus here.", "Add a second highlight here."] },
-    { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", dates: "2017 – 2023",
-      bullets: ["Add responsibilities for this role here.", "Add key results here."] },
-    { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", dates: "2001 – 2017",
-      bullets: ["Add units and patient populations here.", "Add key accomplishments here."] }
+    { role: "Adjunct Professor", org: "Albertus Magnus College", location: "New Haven, CT", dates: "2026 – Present" },
+    { role: "Clinical Outcomes Leader / APSM", org: "Yale New Haven Hospital", location: "New Haven, CT", dates: "2017 – 2023" },
+    { role: "Critical Care Registered Nurse", org: "Yale New Haven Hospital", location: "New Haven, CT", dates: "2001 – 2017" }
   ],
   education: [
     { icon: "cap",  title: "MSN, Executive Leadership", sub: "Chamberlain University, 2022" },
@@ -300,6 +329,7 @@ const P = {
   mail: "M3 6h18v12H3zM3 7l9 6 9-6",
   phone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z",
   link: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
+  image: "M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4M9 9.5h.01",
   pin: "M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
 };
 const icon = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n] || P.check}"/></svg>`;
@@ -321,17 +351,20 @@ $("contactList").innerHTML = S.contact.map(c => `<div>${icon(c.icon)}<span>${c.t
 $("summary").textContent = S.summary;
 $("stats").innerHTML = S.stats.map((s, i) => `<div class="stat ${tone(i)}"><span class="ico">${icon(s.icon)}</span><div><b>${s.value}</b><span class="l">${s.label}</span></div></div>`).join("");
 $("skills").innerHTML = S.skills.map(t => `<span class="badge plain">${t}</span>`).join("");
-$("initiatives").innerHTML = S.initiatives.map((c, i) => `<article class="card ${tone(i)}"><div class="top"><span class="ico">${icon(c.icon)}</span><span class="metric">${c.metric}</span></div><h3>${c.title}</h3><p>${c.text}</p>${c.link ? `<a href="${c.link}"${ext(c.link)}>Learn more</a>` : ""}</article>`).join("");
-
-/* experience: click a role to see its details */
-$("jobs").innerHTML = S.experience.map(j => `<button type="button"><b>${j.role}</b><span>${j.org} · ${j.dates}</span></button>`).join("");
-function showJob(i) {
-  const j = S.experience[i];
-  $("jobDetail").innerHTML = `<h3 style="font-size:1.1rem">${j.role}${j.current ? '<span class="cur">Current</span>' : ""}</h3><p class="sub">${j.org} · ${j.dates}</p>${j.summary ? `<p class="sum">${j.summary}</p>` : ""}<ul>${(j.bullets || []).map(b => `<li>${b}</li>`).join("")}</ul>`;
-  [...$("jobs").children].forEach((b, k) => b.classList.toggle("on", k === i));
+/* impact: click a tab to see its photos */
+const seg = $("impactTabs");
+seg.innerHTML = S.impact.map(g => `<button type="button">${g.name}</button>`).join("");
+function showImpact(i) {
+  $("gallery").innerHTML = S.impact[i].photos.map(p => `<figure>${p.src ? `<img src="${p.src}" alt="${p.caption}">` : `<div class="ph"><div>${icon("image")}<br>Photo goes here</div></div>`}<figcaption>${p.caption}</figcaption></figure>`).join("");
+  [...seg.children].forEach((b, k) => b.setAttribute("aria-selected", k === i));
 }
-[...$("jobs").children].forEach((b, k) => { b.onclick = () => showJob(k); });
-showJob(0);
+[...seg.children].forEach((b, k) => { b.onclick = () => showImpact(k); });
+showImpact(0);
+
+/* experience: one large role, the rest small on the side */
+const main = S.experience.find(j => j.main) || S.experience[0];
+$("jobMain").innerHTML = `<h3>${main.role}<span class="cur">Current</span></h3><p class="sub">${main.org} · ${main.location} · ${main.dates}</p>${main.summary ? `<p class="sum">${main.summary}</p>` : ""}${(main.sections || []).map(x => `<h4>${x.heading}</h4><ul>${x.bullets.map(b => `<li>${b}</li>`).join("")}</ul>`).join("")}`;
+$("jobSide").innerHTML = S.experience.filter(j => j !== main).map(j => `<div class="mini"><b>${j.role}</b><span>${j.org}</span><span>${j.location}</span><span>${j.dates}</span></div>`).join("");
 
 $("edu").innerHTML = S.education.map((e, i) => `<div class="row ${tone(i)}"><span class="ico">${icon(e.icon)}</span><div><h3>${e.title}</h3><p class="sub">${e.sub}</p></div></div>`).join("");
 $("certList").innerHTML = S.certifications.map(c => `<span class="badge">${c}</span>`).join("");
