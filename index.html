@@ -100,6 +100,19 @@ h3 { font-size: .95rem; line-height: 1.35; }
 .ph { background: var(--tint); border: 2px dashed var(--line); display: grid; place-items: center; text-align: center; color: var(--muted); font-size: .8rem; }
 .ph .i { width: 2em; height: 2em; }
 .gallery figcaption { font-size: .88rem; font-weight: 600; text-align: center; }
+.gallery img { cursor: zoom-in; transition: transform .15s ease, box-shadow .15s ease; }
+.gallery img:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+
+/* image pop-up (lightbox) */
+.lb { position: fixed; inset: 0; z-index: 50; background: rgba(12, 22, 21, .9); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lb[hidden] { display: none; }
+.lb-view { margin: 0; display: grid; gap: 12px; justify-items: center; min-width: 0; }
+.lb-view img { max-width: 100%; max-height: 78vh; object-fit: contain; border-radius: 10px; background: #fff; }
+.lb-view figcaption { color: #fff; font-weight: 600; text-align: center; }
+.lb-btn { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #fff; color: var(--fg); font: 700 1.5rem/1 var(--body); cursor: pointer; display: grid; place-items: center; }
+.lb-btn:hover { background: var(--teal-soft); }
+.lb-x { position: absolute; top: max(14px, env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px)); }
+@media (max-width: 600px) { .lb { grid-template-columns: minmax(0, 1fr); } .lb-nav { position: absolute; bottom: max(16px, env(safe-area-inset-bottom, 0px)); } .lb-prev { left: 16px; } .lb-next { right: 16px; } }
 .exp { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 18px; align-items: start; }
 @media (max-width: 760px) { .exp { grid-template-columns: minmax(0, 1fr); } }
 .job-main { background: var(--tint); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
@@ -212,6 +225,13 @@ footer { text-align: center; color: var(--muted); font-size: .82rem; padding-blo
   </main>
  </div>
 </div>
+<!-- Image pop-up -->
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-btn lb-x" id="lbClose" type="button" aria-label="Close">&times;</button>
+  <button class="lb-btn lb-nav lb-prev" id="lbPrev" type="button" aria-label="Previous image">&#8249;</button>
+  <figure class="lb-view" id="lbView"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-btn lb-nav lb-next" id="lbNext" type="button" aria-label="Next image">&#8250;</button>
+</div>
 <footer id="footer"></footer>
 
 <script>
@@ -240,9 +260,9 @@ const SITE = {
     { icon: "mail",  text: "seajaymoore@att.net" },
     { icon: "phone", text: "203-500-5056" }
   ],
-  summary: "Nurse leader with 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
+  summary: "Nurse leader with over 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
   stats: [
-    { icon: "clock",  value: "25 yrs", label: "At Yale New Haven Hospital" },
+    { icon: "clock",  value: "26 yrs", label: "At Yale New Haven Hospital" },
     { icon: "shield", value: "88%",    label: "CAUTI reduction" },
     { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART" },
   ],
@@ -250,22 +270,22 @@ const SITE = {
   /* Impact tabs. Add "src" paths for your photos, e.g. src: "images/hai-1.jpg". Add more photos by copying a line. */
   impact: [
     { name: "Operations", photos: [
-      { src: "images/operations/eCART-Operations.png",                  caption: "Add photo name" },
-      { src: "images/operations/FromDataToDecisions-Operations.png",    caption: "Add photo name" },
-      { src: "images/operations/MedUnitWeekly-Operations.png",          caption: "Add photo name" },
-      { src: "images/operations/TransformingBedside-Operations.png",    caption: "Add photo name" },
-      { src: "images/operations/WildGoose-Operations.png",              caption: "Add photo name" }
+      { src: "images/operations/eCART-Operations.png",                  caption: "eCART" },
+      { src: "images/operations/FromDataToDecisions-Operations.png",    caption: "From Data to Decisions" },
+      { src: "images/operations/MedUnitWeekly-Operations.png",          caption: "YNHH Medicine Units Weekly Rounding" },
+      { src: "images/operations/TransformingBedside-Operations.png",    caption: "Transforming Handoffs at the Bedside" },
+      { src: "images/operations/WildGoose-Operations.png",              caption: "End the Wild Goose Chase" }
     ] },
     { name: "HAI", photos: [
-      { src: "images/hai/AllEyes-HAI.png",               caption: "Add photo name" },
-      { src: "images/hai/BloodCultures-HAI.png",         caption: "Add photo name" },
-      { src: "images/hai/cDiff-HAI.png",                 caption: "Add photo name" },
-      { src: "images/hai/ShieldingLives-HAI.png",        caption: "Add photo name" }
+      { src: "images/hai/AllEyes-HAI.png",                              caption: "All Eyes On Lines" },
+      { src: "images/hai/BloodCultures-HAI.png",                        caption: "Blood Cultures" },
+      { src: "images/hai/cDiff-HAI.png",                                caption: "cDiff" },
+      { src: "images/hai/ShieldingLives-HAI.png",                       caption: "Shielding Lives" }
     ] },
     { name: "HAPI", photos: [
-      { src: "images/hapi/ep46-HAPI.png",               caption: "Add photo name" },
-      { src: "images/hapi/HealthySkin-HAPI.png",        caption: "Add photo name" },
-      { src: "images/hapi/Skin-HAPI.png",               caption: "Add photo name" }
+      { src: "images/hapi/ep46-HAPI.png",                               caption: "ep46 Healthy Skin Success Plan" },
+      { src: "images/hapi/HealthySkin-HAPI.png",                        caption: "YNHH Healthy Skin Program" },
+      { src: "images/hapi/Skin-HAPI.png",                               caption: "Weekly Skin Prevention Rounding" }
     ] }
   ],
   /* Experience: the first "main" role gets the large description. Others show small on the side. */
@@ -353,10 +373,43 @@ $("stats").innerHTML = S.stats.map((s, i) => `<div class="stat ${tone(i)}"><span
 $("skills").innerHTML = S.skills.map(t => `<span class="badge plain">${t}</span>`).join("");
 /* impact: click a tab to see its photos */
 const seg = $("impactTabs");
+let curImpact = 0, lbIdx = 0, lbOpener = null;
+/* image pop-up: click a photo to enlarge. Esc closes, arrow keys move between photos. */
+const lbPhotos = () => S.impact[curImpact].photos.filter(p => p.src);
+function lbRender() {
+  const list = lbPhotos(), p = list[lbIdx];
+  $("lbImg").src = p.src; $("lbImg").alt = p.caption; $("lbCap").textContent = p.caption;
+  $("lbPrev").hidden = $("lbNext").hidden = list.length < 2;
+}
+function openLb(k) {
+  lbIdx = k; lbOpener = document.activeElement; lbRender();
+  $("lb").hidden = false; document.body.style.overflow = "hidden"; $("lbClose").focus();
+}
+function closeLb() {
+  $("lb").hidden = true; document.body.style.overflow = "";
+  if (lbOpener && lbOpener.focus) lbOpener.focus();
+}
+function stepLb(d) { const n = lbPhotos().length; lbIdx = (lbIdx + d + n) % n; lbRender(); }
+$("lbClose").onclick = closeLb;
+$("lbPrev").onclick = () => stepLb(-1);
+$("lbNext").onclick = () => stepLb(1);
+$("lb").onclick = e => { if (e.target === $("lb")) closeLb(); };
+document.addEventListener("keydown", e => {
+  if ($("lb").hidden) return;
+  if (e.key === "Escape") closeLb();
+  else if (e.key === "ArrowLeft" && lbPhotos().length > 1) stepLb(-1);
+  else if (e.key === "ArrowRight" && lbPhotos().length > 1) stepLb(1);
+});
 seg.innerHTML = S.impact.map(g => `<button type="button">${g.name}</button>`).join("");
 function showImpact(i) {
   $("gallery").innerHTML = S.impact[i].photos.map(p => `<figure>${p.src ? `<img src="${p.src}" alt="${p.caption}">` : `<div class="ph"><div>${icon("image")}<br>Photo goes here</div></div>`}<figcaption>${p.caption}</figcaption></figure>`).join("");
   [...seg.children].forEach((b, k) => b.setAttribute("aria-selected", k === i));
+  curImpact = i;
+  $("gallery").querySelectorAll("img").forEach((im, k) => {
+    im.tabIndex = 0; im.setAttribute("role", "button");
+    im.onclick = () => openLb(k);
+    im.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(k); } };
+  });
 }
 [...seg.children].forEach((b, k) => { b.onclick = () => showImpact(k); });
 showImpact(0);
