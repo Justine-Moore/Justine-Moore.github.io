@@ -72,10 +72,6 @@ h3 { font-size: .95rem; line-height: 1.35; }
 .t2 .ico, .ico.t2 { background: var(--gold-soft); color: var(--gold); }
 
 /* overview */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 18px; }
-.stat { background: var(--tint); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: center; }
-.stat b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1.1; }
-.stat span.l { color: var(--muted); font-size: .8rem; line-height: 1.3; display: block; }
 .badges { display: flex; flex-wrap: wrap; gap: 8px; }
 .badge { background: var(--teal-soft); color: var(--teal); font-weight: 700; font-size: .8rem; padding: 5px 12px; border-radius: 999px; }
 .badge.plain { background: var(--tint); color: var(--fg); border: 1px solid var(--line); font-weight: 600; }
@@ -190,7 +186,6 @@ footer { text-align: center; color: var(--muted); font-size: .82rem; padding-blo
     <!-- Each section below is one tab. Copy a <section class="panel"> to add a tab. -->
     <section class="panel" data-title="Overview" data-icon="heart">
       <h2>About</h2><p id="summary"></p>
-      <div class="stats" id="stats"></div>
       <p class="label">Core skills</p><div class="badges" id="skills"></div>
     </section>
 
@@ -261,11 +256,6 @@ const SITE = {
     { icon: "phone", text: "203-500-5056" }
   ],
   summary: "Nurse leader with over 25 years at Yale New Haven Hospital, from critical care bedside nursing to enterprise quality and patient safety leadership. I lead system-wide work in quality, patient safety, regulatory readiness, and clinical effectiveness.",
-  stats: [
-    { icon: "clock",  value: "26 yrs", label: "At Yale New Haven Hospital" },
-    { icon: "shield", value: "88%",    label: "CAUTI reduction" },
-    { icon: "heart",  value: "40%",    label: "Lower mortality, elevated eCART" },
-  ],
   skills: ["Lean", "DMAIC", "PDSA", "Root Cause Analysis", "Statistical Process Control", "Joint Commission / CMS / DPH Readiness", "Performance Scorecards", "Leadership Development"],
   /* Impact tabs. Add "src" paths for your photos, e.g. src: "images/hai-1.jpg". Add more photos by copying a line. */
   impact: [
@@ -376,7 +366,6 @@ $("heroLinks").innerHTML = S.heroLinks.filter(l => l.url).map(l => `<a class="bt
 $("contactList").innerHTML = S.contact.map(c => `<div>${icon(c.icon)}<span>${c.text}</span></div>`).join("");
 
 $("summary").textContent = S.summary;
-$("stats").innerHTML = S.stats.map((s, i) => `<div class="stat ${tone(i)}"><span class="ico">${icon(s.icon)}</span><div><b>${s.value}</b><span class="l">${s.label}</span></div></div>`).join("");
 $("skills").innerHTML = S.skills.map(t => `<span class="badge plain">${t}</span>`).join("");
 /* impact: click a tab to see its photos */
 const seg = $("impactTabs");
